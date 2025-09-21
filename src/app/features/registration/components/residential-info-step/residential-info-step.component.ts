@@ -19,45 +19,45 @@ import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
   template: `
     <form [formGroup]="formGroup()" class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <mat-form-field>
-        <mat-label>ZIP Code</mat-label>
+        <mat-label>CEP</mat-label>
         <input matInput formControlName="zipCode" mask="00000-000" placeholder="00000-000">
         @if (formGroup().get('zipCode')?.hasError('required')) {
-          <mat-error>ZIP code is required</mat-error>
+          <mat-error>CEP é obrigatório</mat-error>
         }
         @if (formGroup().get('zipCode')?.hasError('pattern')) {
-          <mat-error>Invalid ZIP code format</mat-error>
+          <mat-error>Formato de CEP inválido</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Address</mat-label>
-        <input matInput formControlName="address" placeholder="Street address">
+        <mat-label>Endereço</mat-label>
+        <input matInput formControlName="address" placeholder="Endereço da rua">
         @if (formGroup().get('address')?.hasError('required')) {
-          <mat-error>Address is required</mat-error>
+          <mat-error>Endereço é obrigatório</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Neighborhood</mat-label>
-        <input matInput formControlName="neighborhood" placeholder="Neighborhood">
+        <mat-label>Bairro</mat-label>
+        <input matInput formControlName="neighborhood" placeholder="Bairro">
         @if (formGroup().get('neighborhood')?.hasError('required')) {
-          <mat-error>Neighborhood is required</mat-error>
+          <mat-error>Bairro é obrigatório</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>City</mat-label>
-        <input matInput formControlName="city" placeholder="City">
+        <mat-label>Cidade</mat-label>
+        <input matInput formControlName="city" placeholder="Cidade">
         @if (formGroup().get('city')?.hasError('required')) {
-          <mat-error>City is required</mat-error>
+          <mat-error>Cidade é obrigatória</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>State</mat-label>
-        <input matInput formControlName="state" placeholder="State">
+        <mat-label>Estado</mat-label>
+        <input matInput formControlName="state" placeholder="Estado">
         @if (formGroup().get('state')?.hasError('required')) {
-          <mat-error>State is required</mat-error>
+          <mat-error>Estado é obrigatório</mat-error>
         }
       </mat-form-field>
     </form>

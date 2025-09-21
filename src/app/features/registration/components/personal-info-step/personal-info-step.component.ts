@@ -24,21 +24,21 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
       class="grid grid-cols-1 md:grid-cols-2 gap-4"
     >
       <mat-form-field class="md:col-span-2">
-        <mat-label>Full Name</mat-label>
+        <mat-label>Nome Completo</mat-label>
         <input
           matInput
           formControlName="fullName"
-          placeholder="Enter your full name"
+          placeholder="Digite seu nome completo"
         />
         @if (formGroup().get('fullName')?.hasError('required')) {
-        <mat-error>Full name is required</mat-error>
+        <mat-error>Nome completo é obrigatório</mat-error>
         } @if (formGroup().get('fullName')?.hasError('minlength')) {
-        <mat-error>Name must be at least 2 characters</mat-error>
+        <mat-error>Nome deve ter pelo menos 2 caracteres</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Date of Birth</mat-label>
+        <mat-label>Data de Nascimento</mat-label>
         <input
           matInput
           [matDatepicker]="picker"
@@ -50,7 +50,7 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
         ></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         @if (formGroup().get('dateOfBirth')?.hasError('required')) {
-        <mat-error>Date of birth is required</mat-error>
+        <mat-error>Data de nascimento é obrigatória</mat-error>
         }
       </mat-form-field>
 
@@ -63,14 +63,14 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
           placeholder="000.000.000-00"
         />
         @if (formGroup().get('cpf')?.hasError('required')) {
-        <mat-error>CPF is required</mat-error>
+        <mat-error>CPF é obrigatório</mat-error>
         } @if (formGroup().get('cpf')?.hasError('cpf')) {
-        <mat-error>Invalid CPF</mat-error>
+        <mat-error>CPF inválido</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Phone Number</mat-label>
+        <mat-label>Número de Telefone</mat-label>
         <input
           matInput
           formControlName="phoneNumber"
@@ -78,9 +78,9 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
           placeholder="(00) 00000-0000"
         />
         @if (formGroup().get('phoneNumber')?.hasError('required')) {
-        <mat-error>Phone number is required</mat-error>
+        <mat-error>Número de telefone é obrigatório</mat-error>
         } @if (formGroup().get('phoneNumber')?.hasError('phone')) {
-        <mat-error>Invalid phone number</mat-error>
+        <mat-error>Número de telefone inválido</mat-error>
         }
       </mat-form-field>
     </form>

@@ -33,7 +33,7 @@ import { OccupationService } from '../../services/occupation.service';
       class="grid grid-cols-1 md:grid-cols-2 gap-4"
     >
       <mat-form-field>
-        <mat-label>Occupation</mat-label>
+        <mat-label>Profissão</mat-label>
         <mat-select formControlName="occupation">
           @for (occupation of occupations$ | async; track occupation.name) {
           <mat-option [value]="occupation.name">
@@ -42,20 +42,20 @@ import { OccupationService } from '../../services/occupation.service';
           }
         </mat-select>
         @if (formGroup().get('occupation')?.hasError('required')) {
-        <mat-error>Occupation is required</mat-error>
+        <mat-error>Profissão é obrigatória</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
-        <mat-label>Company</mat-label>
-        <input matInput formControlName="company" placeholder="Company name" />
+        <mat-label>Empresa</mat-label>
+        <input matInput formControlName="company" placeholder="Nome da empresa" />
         @if (formGroup().get('company')?.hasError('required')) {
-        <mat-error>Company is required</mat-error>
+        <mat-error>Empresa é obrigatória</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field class="md:col-span-2">
-        <mat-label>Salary</mat-label>
+        <mat-label>Salário</mat-label>
         <input
           matInput
           formControlName="salary"
@@ -65,9 +65,9 @@ import { OccupationService } from '../../services/occupation.service';
           placeholder="R$ 0,00"
         />
         @if (formGroup().get('salary')?.hasError('required')) {
-        <mat-error>Salary is required</mat-error>
+        <mat-error>Salário é obrigatório</mat-error>
         } @if (formGroup().get('salary')?.hasError('min')) {
-        <mat-error>Salary must be greater than 0</mat-error>
+        <mat-error>Salário deve ser maior que 0</mat-error>
         }
       </mat-form-field>
     </form>

@@ -10,85 +10,85 @@ import { MatCardModule } from '@angular/material/card';
   template: `
     <div class="space-y-6">
       <mat-card class="p-6">
-        <h3 class="text-lg font-semibold mb-4">Personal Information</h3>
+        <h3 class="text-lg font-semibold mb-4">Informações Pessoais</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="text-sm text-gray-600">Full Name</label>
+            <label class="text-sm text-gray-600">Nome Completo</label>
             <p class="font-medium">
-              {{ personalInfo()?.fullName || 'Not provided' }}
+              {{ personalInfo()?.fullName || 'Não informado' }}
             </p>
           </div>
           <div>
-            <label class="text-sm text-gray-600">Date of Birth</label>
+            <label class="text-sm text-gray-600">Data de Nascimento</label>
             <p class="font-medium">
-              {{ formatDate(personalInfo()?.dateOfBirth) || 'Not provided' }}
+              {{ formatDate(personalInfo()?.dateOfBirth) || 'Não informado' }}
             </p>
           </div>
           <div>
             <label class="text-sm text-gray-600">CPF</label>
-            <p class="font-medium">{{ personalInfo()?.cpf || 'Not provided' }}</p>
+            <p class="font-medium">{{ personalInfo()?.cpf || 'Não informado' }}</p>
           </div>
           <div>
-            <label class="text-sm text-gray-600">Phone Number</label>
+            <label class="text-sm text-gray-600">Número de Telefone</label>
             <p class="font-medium">
-              {{ personalInfo()?.phoneNumber || 'Not provided' }}
+              {{ personalInfo()?.phoneNumber || 'Não informado' }}
             </p>
           </div>
         </div>
       </mat-card>
 
       <mat-card class="p-6">
-        <h3 class="text-lg font-semibold mb-4">Address Information</h3>
+        <h3 class="text-lg font-semibold mb-4">Informações de Endereço</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="text-sm text-gray-600">CEP</label>
-            <p class="font-medium">{{ residentialInfo()?.zipCode || 'Not provided' }}</p>
+            <p class="font-medium">{{ residentialInfo()?.zipCode || 'Não informado' }}</p>
           </div>
           <div>
-            <label class="text-sm text-gray-600">Street</label>
+            <label class="text-sm text-gray-600">Endereço</label>
             <p class="font-medium">
-              {{ residentialInfo()?.address || 'Not provided' }}
+              {{ residentialInfo()?.address || 'Não informado' }}
             </p>
           </div>
 
           <div>
-            <label class="text-sm text-gray-600">Neighborhood</label>
+            <label class="text-sm text-gray-600">Bairro</label>
             <p class="font-medium">
-              {{ residentialInfo()?.neighborhood || 'Not provided' }}
+              {{ residentialInfo()?.neighborhood || 'Não informado' }}
             </p>
           </div>
           <div>
-            <label class="text-sm text-gray-600">City</label>
-            <p class="font-medium">{{ residentialInfo()?.city || 'Not provided' }}</p>
+            <label class="text-sm text-gray-600">Cidade</label>
+            <p class="font-medium">{{ residentialInfo()?.city || 'Não informado' }}</p>
           </div>
           <div>
-            <label class="text-sm text-gray-600">State</label>
+            <label class="text-sm text-gray-600">Estado</label>
             <p class="font-medium">
-              {{ residentialInfo()?.state || 'Not provided' }}
+              {{ residentialInfo()?.state || 'Não informado' }}
             </p>
           </div>
         </div>
       </mat-card>
 
       <mat-card class="p-6">
-        <h3 class="text-lg font-semibold mb-4">Professional Information</h3>
+        <h3 class="text-lg font-semibold mb-4">Informações Profissionais</h3>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label class="text-sm text-gray-600">Occupation</label>
+            <label class="text-sm text-gray-600">Profissão</label>
             <p class="font-medium">
-              {{ professionalInfo()?.occupation || 'Not provided' }}
+              {{ professionalInfo()?.occupation || 'Não informado' }}
             </p>
           </div>
           <div>
-            <label class="text-sm text-gray-600">Company</label>
+            <label class="text-sm text-gray-600">Empresa</label>
             <p class="font-medium">
-              {{ professionalInfo()?.company || 'Not provided' }}
+              {{ professionalInfo()?.company || 'Não informado' }}
             </p>
           </div>
           <div>
-            <label class="text-sm text-gray-600">Salary</label>
+            <label class="text-sm text-gray-600">Salário</label>
             <p class="font-medium">
-              {{ formatSalary(professionalInfo()?.salary) || 'Not provided' }}
+              {{ formatSalary(professionalInfo()?.salary) || 'Não informado' }}
             </p>
           </div>
         </div>

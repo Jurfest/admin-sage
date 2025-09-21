@@ -28,13 +28,13 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="max-w-4xl mx-auto p-6">
-      <h1 class="text-3xl font-bold text-center mb-8">Registration Form</h1>
+      <h1 class="text-3xl font-bold text-center mb-8">Formulário de Cadastro</h1>
 
       <mat-stepper [formGroup]="registrationForm" orientation="horizontal">
         <mat-step
           formGroupName="personal"
           [stepControl]="personalFormGroup()"
-          label="Personal Info"
+          label="Informações Pessoais"
         >
           <app-personal-info-step
             [formGroup]="personalFormGroup()"
@@ -44,7 +44,7 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
         <mat-step
           formGroupName="residential"
           [stepControl]="residentialFormGroup()"
-          label="Address"
+          label="Endereço"
         >
           <app-residential-info-step
             [formGroup]="residentialFormGroup()"
@@ -54,14 +54,14 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
         <mat-step
           formGroupName="professional"
           [stepControl]="professionalFormGroup()"
-          label="Professional"
+          label="Profissional"
         >
           <app-professional-info-step
             [formGroup]="professionalFormGroup()"
           ></app-professional-info-step>
         </mat-step>
 
-        <mat-step label="Summary">
+        <mat-step label="Resumo">
           <app-summary-step [formGroup]="registrationForm"></app-summary-step>
         </mat-step>
       </mat-stepper>

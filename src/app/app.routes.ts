@@ -1,9 +1,5 @@
 import { Route } from '@angular/router';
 
-import {
-  RegistrationStepperComponent,
-} from './features/registration/components/registration-stepper/registration-stepper.component';
-
 export const appRoutes: Route[] = [
   {
     path: '',
@@ -12,14 +8,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'registration',
-    component: RegistrationStepperComponent,
-  },
-  {
-    path: 'summary',
-    loadComponent: () =>
-      import(
-        './features/registration/components/summary-step/summary-step.component'
-      ),
+    loadChildren: () => import('./features/registration/registration.routes'),
   },
   {
     path: '**',

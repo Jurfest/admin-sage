@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  inject,
+  computed,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -9,9 +14,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 
 import { CustomValidators } from '../../validators/custom-validators';
-import { PersonalInfoStepComponent } from '../personal-info-step/personal-info-step.component';
-import { ProfessionalInfoStepComponent } from '../professional-info-step/professional-info-step.component';
-import { ResidentialInfoStepComponent } from '../residential-info-step/residential-info-step.component';
+import { PersonalInfoStepComponent } from '../../components/personal-info-step/personal-info-step.component';
+import { ProfessionalInfoStepComponent } from '../../components/professional-info-step/professional-info-step.component';
+import { ResidentialInfoStepComponent } from '../../components/residential-info-step/residential-info-step.component';
 import { SummaryStepComponent } from '../summary-step/summary-step.component';
 
 @Component({
@@ -28,7 +33,9 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="max-w-4xl mx-auto p-6">
-      <h1 class="text-3xl font-bold text-center mb-8">Formulário de Cadastro</h1>
+      <h1 class="text-3xl font-bold text-center mb-8">
+        Formulário de Cadastro
+      </h1>
 
       <mat-stepper [formGroup]="registrationForm" orientation="horizontal">
         <mat-step
@@ -71,9 +78,15 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
 export class RegistrationStepperComponent {
   private fb = inject(FormBuilder);
 
-  personalFormGroup = computed(() => this.registrationForm.get('personal') as FormGroup);
-  residentialFormGroup = computed(() => this.registrationForm.get('residential') as FormGroup);
-  professionalFormGroup = computed(() => this.registrationForm.get('professional') as FormGroup);
+  personalFormGroup = computed(
+    () => this.registrationForm.get('personal') as FormGroup
+  );
+  residentialFormGroup = computed(
+    () => this.registrationForm.get('residential') as FormGroup
+  );
+  professionalFormGroup = computed(
+    () => this.registrationForm.get('professional') as FormGroup
+  );
 
   registrationForm = this.fb.group({
     personal: this.fb.group({

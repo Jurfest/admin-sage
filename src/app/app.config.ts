@@ -15,6 +15,7 @@ import {
 import { provideRouter } from '@angular/router';
 
 import { appRoutes } from './app.routes';
+import { mockApiInterceptor } from './core/interceptors/mock-api.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,6 +23,6 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
-    provideHttpClient(withInterceptors([]), withFetch()),
+    provideHttpClient(withInterceptors([mockApiInterceptor]), withFetch()),
   ],
 };

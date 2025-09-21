@@ -75,12 +75,12 @@ export class ResidentialInfoStepComponent {
         distinctUntilChanged(),
         filter(value => value && value.replace(/\D/g, '').length === 8)
       ).subscribe(zipCode => {
-        this.zipCodeService.getAddressByZipCode(zipCode).subscribe(response => {
+        this.zipCodeService.lookupZipCode(zipCode).subscribe((response) => {
           form.patchValue({
             address: response.address,
             neighborhood: response.neighborhood,
             city: response.city,
-            state: response.state
+            state: response.state,
           });
         });
       });

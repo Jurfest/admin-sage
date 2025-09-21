@@ -13,9 +13,7 @@ export default <Routes>[
       {
         path: 'summary',
         loadComponent: () =>
-          import(
-            './containers/summary-step/summary-step.component'
-          ),
+          import('./containers/summary-step/summary-step.component'),
       },
     ],
   },

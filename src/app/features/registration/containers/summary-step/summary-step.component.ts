@@ -1,4 +1,9 @@
-import { Component, ChangeDetectionStrategy, input, computed } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  computed,
+} from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -26,7 +31,9 @@ import { MatCardModule } from '@angular/material/card';
           </div>
           <div>
             <label class="text-sm text-gray-600">CPF</label>
-            <p class="font-medium">{{ personalInfo()?.cpf || 'Não informado' }}</p>
+            <p class="font-medium">
+              {{ personalInfo()?.cpf || 'Não informado' }}
+            </p>
           </div>
           <div>
             <label class="text-sm text-gray-600">Número de Telefone</label>
@@ -42,7 +49,9 @@ import { MatCardModule } from '@angular/material/card';
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label class="text-sm text-gray-600">CEP</label>
-            <p class="font-medium">{{ residentialInfo()?.zipCode || 'Não informado' }}</p>
+            <p class="font-medium">
+              {{ residentialInfo()?.zipCode || 'Não informado' }}
+            </p>
           </div>
           <div>
             <label class="text-sm text-gray-600">Endereço</label>
@@ -59,7 +68,9 @@ import { MatCardModule } from '@angular/material/card';
           </div>
           <div>
             <label class="text-sm text-gray-600">Cidade</label>
-            <p class="font-medium">{{ residentialInfo()?.city || 'Não informado' }}</p>
+            <p class="font-medium">
+              {{ residentialInfo()?.city || 'Não informado' }}
+            </p>
           </div>
           <div>
             <label class="text-sm text-gray-600">Estado</label>
@@ -101,7 +112,9 @@ export class SummaryStepComponent {
 
   personalInfo = computed(() => this.formGroup()?.get('personal')?.value);
   residentialInfo = computed(() => this.formGroup()?.get('residential')?.value);
-  professionalInfo = computed(() => this.formGroup()?.get('professional')?.value);
+  professionalInfo = computed(
+    () => this.formGroup()?.get('professional')?.value
+  );
 
   formatDate(date: any): string {
     if (!date) return '';
@@ -112,7 +125,7 @@ export class SummaryStepComponent {
     if (!salary) return '';
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
-      currency: 'BRL'
+      currency: 'BRL',
     }).format(salary);
   }
 }

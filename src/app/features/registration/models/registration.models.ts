@@ -26,6 +26,17 @@ export interface ZipCodeResponse {
   state: string;
 }
 
+export interface ZipCodeApiResponse {
+  success: boolean;
+  timestamp: string;
+  zipcode: string;
+  data: ZipCodeResponse;
+  metadata: {
+    source: string;
+    version: string;
+  };
+}
+
 export interface Occupation {
   id: string;
   name: string;

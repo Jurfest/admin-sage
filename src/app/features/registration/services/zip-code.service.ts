@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../../environments/environment';
-import { ZipCodeResponse } from '../models/registration.models';
+import {
+  ZipCodeApiResponse,
+  ZipCodeResponse,
+} from '../models/registration.models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +17,8 @@ export class ZipCodeService {
 
   lookupZipCode(zipcode: string): Observable<ZipCodeResponse> {
     const url = `${this.baseUrl}${environment.api.endpoints.zipcode}`;
-    return this.http.post<ZipCodeResponse>(url, { zipcode });
+    return this.http
+      .post<ZipCodeApiResponse>(url, { zipcode })
+      .pipe(map((response) => response.data));
   }
 }

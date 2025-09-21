@@ -4,7 +4,7 @@ import { delay, of } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {
   Occupation,
-  ZipCodeResponse,
+  ZipCodeApiResponse,
 } from '../../features/registration/models/registration.models';
 
 export const mockApiInterceptor: HttpInterceptorFn = (req, next) => {
@@ -32,12 +32,21 @@ export const mockApiInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req);
 };
 
-function getMockZipCode(zipcode: string): ZipCodeResponse {
-  const mockResponse: ZipCodeResponse = {
-    address: 'Rua Abc, 123',
-    neighborhood: 'Centro',
-    city: 'São Paulo',
-    state: 'SP',
+function getMockZipCode(zipcode: string): ZipCodeApiResponse {
+  const mockResponse: ZipCodeApiResponse = {
+    success: true,
+    timestamp: new Date().toISOString(),
+    zipcode: zipcode,
+    data: {
+      address: 'Rua Abc, 123',
+      neighborhood: 'Centro',
+      city: 'São Paulo',
+      state: 'SP',
+    },
+    metadata: {
+      source: 'mock-api',
+      version: '1.0',
+    },
   };
 
   return mockResponse;

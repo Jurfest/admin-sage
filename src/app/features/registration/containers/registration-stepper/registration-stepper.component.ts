@@ -13,7 +13,7 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 
-import { CustomValidators } from '../../validators/custom-validators';
+import { CustomValidators } from '../../../../validators/custom-validators';
 import { PersonalInfoStepComponent } from '../../components/personal-info-step/personal-info-step.component';
 import { ProfessionalInfoStepComponent } from '../../components/professional-info-step/professional-info-step.component';
 import { ResidentialInfoStepComponent } from '../../components/residential-info-step/residential-info-step.component';

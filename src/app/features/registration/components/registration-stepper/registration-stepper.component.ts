@@ -1,0 +1,101 @@
+import { Component, ChangeDetectionStrategy, inject, computed } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatStepperModule } from '@angular/material/stepper';
+
+import { CustomValidators } from '../../validators/custom-validators';
+import { PersonalInfoStepComponent } from '../personal-info-step/personal-info-step.component';
+import { ProfessionalInfoStepComponent } from '../professional-info-step/professional-info-step.component';
+import { ResidentialInfoStepComponent } from '../residential-info-step/residential-info-step.component';
+import { SummaryStepComponent } from '../summary-step/summary-step.component';
+
+@Component({
+  selector: 'app-registration-stepper',
+  imports: [
+    ReactiveFormsModule,
+    MatStepperModule,
+    MatButtonModule,
+    PersonalInfoStepComponent,
+    ResidentialInfoStepComponent,
+    ProfessionalInfoStepComponent,
+    SummaryStepComponent,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <div class="max-w-4xl mx-auto p-6">
+      <h1 class="text-3xl font-bold text-center mb-8">Registration Form</h1>
+
+      <mat-stepper [formGroup]="registrationForm" orientation="horizontal">
+        <mat-step
+          formGroupName="personal"
+          [stepControl]="personalFormGroup()"
+          label="Personal Info"
+        >
+          <app-personal-info-step
+            [formGroup]="personalFormGroup()"
+          ></app-personal-info-step>
+        </mat-step>
+
+        <mat-step
+          formGroupName="residential"
+          [stepControl]="residentialFormGroup()"
+          label="Address"
+        >
+          <app-residential-info-step
+            [formGroup]="residentialFormGroup()"
+          ></app-residential-info-step>
+        </mat-step>
+
+        <mat-step
+          formGroupName="professional"
+          [stepControl]="professionalFormGroup()"
+          label="Professional"
+        >
+          <app-professional-info-step
+            [formGroup]="professionalFormGroup()"
+          ></app-professional-info-step>
+        </mat-step>
+
+        <mat-step label="Summary">
+          <app-summary-step [formGroup]="registrationForm"></app-summary-step>
+        </mat-step>
+      </mat-stepper>
+    </div>
+  `,
+})
+export class RegistrationStepperComponent {
+  private fb = inject(FormBuilder);
+
+  personalFormGroup = computed(() => this.registrationForm.get('personal') as FormGroup);
+  residentialFormGroup = computed(() => this.registrationForm.get('residential') as FormGroup);
+  professionalFormGroup = computed(() => this.registrationForm.get('professional') as FormGroup);
+
+  registrationForm = this.fb.group({
+    personal: this.fb.group({
+      fullName: ['', [Validators.required, Validators.minLength(2)]],
+      dateOfBirth: ['', Validators.required],
+      cpf: ['', [Validators.required, CustomValidators.cpf()]],
+      phoneNumber: ['', [Validators.required, CustomValidators.phone()]],
+    }),
+    residential: this.fb.group({
+      zipCode: [
+        '',
+        [Validators.required, Validators.pattern(/^\d{5}-?\d{3}$/)],
+      ],
+      address: ['', Validators.required],
+      neighborhood: ['', Validators.required],
+      city: ['', Validators.required],
+      state: ['', Validators.required],
+    }),
+    professional: this.fb.group({
+      occupation: ['', Validators.required],
+      company: ['', Validators.required],
+      salary: ['', [Validators.required, Validators.min(0)]],
+    }),
+  });
+}

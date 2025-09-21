@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  effect,
+  DestroyRef,
   inject,
   input,
+  OnInit,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -81,30 +83,32 @@ import { ZipCodeService } from '../../services/zip-code.service';
     </form>
   `,
 })
-export class ResidentialInfoStepComponent {
+export class ResidentialInfoStepComponent implements OnInit {
   formGroup = input.required<FormGroup>();
   private zipCodeService = inject(ZipCodeService);
+  private destroyRef = inject(DestroyRef);
 
-  constructor() {
-    effect(() => {
-      const form = this.formGroup();
-      form
-        .get('zipCode')
-        ?.valueChanges.pipe(
-          debounceTime(500),
-          distinctUntilChanged(),
-          filter((value) => value && value.replace(/\D/g, '').length === 8)
-        )
-        .subscribe((zipCode) => {
-          this.zipCodeService.lookupZipCode(zipCode).subscribe((response) => {
-            form.patchValue({
+  ngOnInit(): void {
+    this.formGroup()
+      .get('zipCode')
+      ?.valueChanges.pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        filter((value) => value && value.replace(/\D/g, '').length === 8),
+        takeUntilDestroyed(this.destroyRef)
+      )
+      .subscribe((zipCode) => {
+        this.zipCodeService
+          .lookupZipCode(zipCode)
+          .pipe(takeUntilDestroyed(this.destroyRef))
+          .subscribe((response) => {
+            this.formGroup().patchValue({
               address: response.address,
               neighborhood: response.neighborhood,
               city: response.city,
               state: response.state,
             });
           });
-        });
-    });
+      });
   }
 }

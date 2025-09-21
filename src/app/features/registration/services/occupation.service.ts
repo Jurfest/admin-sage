@@ -19,5 +19,7 @@ export class OccupationService {
     },
   });
 
-  occupations = computed(() => this.occupationsResource.value() ?? [] as Occupation[]);
+  occupations = computed(
+    () => this.occupationsResource.value() ?? ([] as Occupation[])
+  );
 }

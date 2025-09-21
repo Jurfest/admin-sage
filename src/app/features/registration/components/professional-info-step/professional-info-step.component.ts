@@ -46,7 +46,11 @@ import { OccupationService } from '../../services/occupation.service';
 
       <mat-form-field>
         <mat-label>Empresa</mat-label>
-        <input matInput formControlName="company" placeholder="Nome da empresa" />
+        <input
+          matInput
+          formControlName="company"
+          placeholder="Nome da empresa"
+        />
         @if (formGroup().get('company')?.hasError('required')) {
         <mat-error>Empresa é obrigatória</mat-error>
         }

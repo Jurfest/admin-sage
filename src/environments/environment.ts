@@ -5,7 +5,7 @@ export const environment = {
     baseUrl: 'https://api.admin-sage.com',
     endpoints: {
       zipcode: '/api/v1/zipcode',
-      occupations: '/api/v1/occupations'
-    }
-  }
+      occupations: '/api/v1/occupations',
+    },
+  },
 };

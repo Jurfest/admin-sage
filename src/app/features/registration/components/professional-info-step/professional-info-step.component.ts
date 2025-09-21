@@ -10,9 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { Observable } from 'rxjs';
 
-import { Occupation } from '../../models/registration.models';
 import { OccupationService } from '../../services/occupation.service';
 
 @Component({
@@ -35,7 +33,7 @@ import { OccupationService } from '../../services/occupation.service';
       <mat-form-field>
         <mat-label>Profissão</mat-label>
         <mat-select formControlName="occupation">
-          @for (occupation of occupations$ | async; track occupation.name) {
+          @for (occupation of occupations(); track occupation.name) {
           <mat-option [value]="occupation.name">
             {{ occupation.name }}
           </mat-option>
@@ -75,6 +73,6 @@ import { OccupationService } from '../../services/occupation.service';
 })
 export class ProfessionalInfoStepComponent {
   formGroup = input.required<FormGroup>();
-  occupations$: Observable<Occupation[]> =
-    inject(OccupationService).getOccupations();
+  private occupationService = inject(OccupationService);
+  occupations = this.occupationService.occupations;
 }

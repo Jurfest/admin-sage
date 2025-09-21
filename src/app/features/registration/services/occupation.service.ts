@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { delay, Observable, of } from 'rxjs';
+import { computed, inject, Injectable } from '@angular/core';
+import { rxResource } from '@angular/core/rxjs-interop';
 
 import { environment } from '../../../../environments/environment';
 import { Occupation } from '../models/registration.models';
@@ -12,8 +12,12 @@ export class OccupationService {
   private http = inject(HttpClient);
   private baseUrl = environment.api.baseUrl;
 
-  getOccupations(): Observable<Occupation[]> {
-    const url = `${this.baseUrl}${environment.api.endpoints.occupations}`;
-    return this.http.get<Occupation[]>(url);
-  }
+  private occupationsResource = rxResource({
+    stream: () => {
+      const url = `${this.baseUrl}${environment.api.endpoints.occupations}`;
+      return this.http.get<Occupation[]>(url);
+    },
+  });
+
+  occupations = computed(() => this.occupationsResource.value() ?? [] as Occupation[]);
 }

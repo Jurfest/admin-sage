@@ -1,0 +1,2 @@
+npx nx run-many -t build --parallel
+npx nx run-many -t test --parallel --passWithNoTests

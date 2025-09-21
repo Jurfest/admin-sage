@@ -1,0 +1,2 @@
+npx nx run-many -t lint --fix
+npx nx format:write

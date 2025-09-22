@@ -86,6 +86,6 @@
   },
   "defaultProject": "admin-sage",
   "tui": {
-    "autoExit": 1
+    "autoExit": 0
   }
 }

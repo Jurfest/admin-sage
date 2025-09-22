@@ -1,8 +1,5 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  inject,
-} from '@angular/core';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -11,7 +8,6 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
-import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 import { CustomValidators } from '../../../../validators/custom-validators';
 import { PersonalInfoStepComponent } from '../../components/personal-info-step/personal-info-step.component';

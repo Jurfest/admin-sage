@@ -118,12 +118,12 @@ export class SummaryStepComponent {
   constructor() {
     effect(() => {
       const form = this.formGroup();
-      
+
       // Update signals with current values
       this.personalInfo.set(form?.get('personal')?.value || {});
       this.residentialInfo.set(form?.get('residential')?.value || {});
       this.professionalInfo.set(form?.get('professional')?.value || {});
-      
+
       // Subscribe to form changes
       form?.valueChanges.subscribe(() => {
         this.personalInfo.set(form.get('personal')?.value || {});

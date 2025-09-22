@@ -41,9 +41,14 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
         <mat-label>Data de Nascimento</mat-label>
         <input
           matInput
-          [matDatepicker]="picker"
+          [min]="minDate"
+          [max]="maxDate"
+          placeholder="dd/mm/aaaa"
+          required
           formControlName="dateOfBirth"
+          [matDatepicker]="picker"
         />
+        <mat-hint>DD/MM/AAAA</mat-hint>
         <mat-datepicker-toggle
           matIconSuffix
           [for]="picker"
@@ -51,6 +56,10 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
         <mat-datepicker #picker></mat-datepicker>
         @if (formGroup().get('dateOfBirth')?.hasError('required')) {
         <mat-error>Data de nascimento é obrigatória</mat-error>
+        } @if (formGroup().get('dateOfBirth')?.hasError('matDatepickerMin')) {
+        <mat-error>Data deve ser posterior a 01/01/1900</mat-error>
+        } @if (formGroup().get('dateOfBirth')?.hasError('matDatepickerMax')) {
+        <mat-error>Data não pode ser futura</mat-error>
         }
       </mat-form-field>
 
@@ -88,4 +97,8 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 })
 export class PersonalInfoStepComponent {
   formGroup = input.required<FormGroup>();
+
+  // Date constraints for birth date
+  minDate = new Date(1900, 0, 1); // January 1, 1900
+  maxDate = new Date(); // Today
 }

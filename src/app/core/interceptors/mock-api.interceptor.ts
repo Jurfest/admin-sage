@@ -54,11 +54,16 @@ function getMockZipCode(zipcode: string): ZipCodeApiResponse {
 
 function getMockOccupations() {
   const mockOccupations: Occupation[] = [
-    { id: '1', name: 'Software Developer' },
-    { id: '2', name: 'Product Manager' },
-    { id: '3', name: 'UX Designer' },
-    { id: '4', name: 'Data Analyst' },
-    { id: '5', name: 'Marketing Specialist' },
+    { id: '1', name: 'Desenvolvedor de Software' },
+    { id: '2', name: 'Gerente de Produto' },
+    { id: '3', name: 'Designer UX' },
+    { id: '4', name: 'Analista de Dados' },
+    { id: '5', name: 'Especialista em Marketing' },
+    { id: '6', name: 'Representante de Vendas' },
+    { id: '7', name: 'Analista Financeiro' },
+    { id: '8', name: 'Designer Gráfico' },
+    { id: '9', name: 'Gerente de Projeto' },
+    { id: '10', name: 'Analista de Negócios' },
   ];
 
   return mockOccupations;

@@ -1,11 +1,12 @@
-import {
-  signalStore,
-  withState,
-  withMethods,
-  patchState,
-  withComputed,
-} from '@ngrx/signals';
 import { computed, inject } from '@angular/core';
+import {
+  patchState,
+  signalStore,
+  withComputed,
+  withMethods,
+  withState,
+} from '@ngrx/signals';
+
 import { OccupationService } from '../../features/registration/services/occupation.service';
 
 export interface LoadingState {

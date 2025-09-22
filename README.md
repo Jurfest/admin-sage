@@ -67,14 +67,6 @@ npx nx lint admin-sage
 
 Instale [Nx Console](https://nx.dev/getting-started/editor-setup) para VSCode ou IntelliJ para executar tarefas e gerar código de forma visual.
 
-### Nx Graph
-
-Visualize dependências do workspace:
-
-```sh
-npx nx graph
-```
-
 ---
 
 ## Resources

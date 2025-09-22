@@ -7,6 +7,7 @@ import {
   OnInit,
   signal,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -112,7 +113,8 @@ import { RegistrationFormService } from '../../services/registration-form.servic
         </div>
       </mat-card>
 
-      <div class="flex justify-center mt-6">
+      <div class="flex justify-center gap-4 mt-6">
+        <button mat-button (click)="goBack()">Voltar ao Formulário</button>
         <button
           mat-raised-button
           color="primary"
@@ -129,6 +131,7 @@ import { RegistrationFormService } from '../../services/registration-form.servic
 })
 export class SummaryStepComponent implements OnInit, OnDestroy {
   private formService = inject(RegistrationFormService);
+  private router = inject(Router);
   private destroy$ = new Subject<void>();
 
   personalInfo = signal<any>({});
@@ -170,6 +173,10 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
       style: 'currency',
       currency: 'BRL',
     }).format(salary);
+  }
+
+  goBack(): void {
+    this.router.navigate(['/registration']);
   }
 
   async exportToPDF(): Promise<void> {

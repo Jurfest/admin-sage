@@ -37,7 +37,7 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
         Formulário de Cadastro
       </h1>
 
-      <mat-stepper [formGroup]="registrationForm" orientation="horizontal">
+      <mat-stepper [formGroup]="registrationForm" orientation="horizontal" #stepper>
         <mat-step
           formGroupName="personal"
           [stepControl]="personalFormGroup()"
@@ -46,6 +46,9 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
           <app-personal-info-step
             [formGroup]="personalFormGroup()"
           ></app-personal-info-step>
+          <div class="mt-4">
+            <button matButton matStepperNext>Próximo</button>
+          </div>
         </mat-step>
 
         <mat-step
@@ -56,6 +59,10 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
           <app-residential-info-step
             [formGroup]="residentialFormGroup()"
           ></app-residential-info-step>
+          <div class="mt-4">
+            <button matButton matStepperPrevious>Voltar</button>
+            <button matButton matStepperNext class="ml-2">Próximo</button>
+          </div>
         </mat-step>
 
         <mat-step
@@ -66,10 +73,18 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
           <app-professional-info-step
             [formGroup]="professionalFormGroup()"
           ></app-professional-info-step>
+          <div class="mt-4">
+            <button matButton matStepperPrevious>Voltar</button>
+            <button matButton matStepperNext class="ml-2">Próximo</button>
+          </div>
         </mat-step>
 
         <mat-step label="Resumo">
           <app-summary-step [formGroup]="registrationForm"></app-summary-step>
+          <div class="mt-4">
+            <button matButton matStepperPrevious>Voltar</button>
+            <button matButton (click)="stepper.reset()" class="ml-2">Reiniciar</button>
+          </div>
         </mat-step>
       </mat-stepper>
     </div>

@@ -1,4 +1,7 @@
-<router-outlet></router-outlet>
+<main class="container mx-auto mt-16 p-10">
+  <router-outlet />
+</main>
+
 @if (loadingStore.isAnyLoading()) {
 <app-spinner></app-spinner>
 }

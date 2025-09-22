@@ -28,7 +28,7 @@ import { RegistrationFormService } from '../../services/registration-form.servic
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="max-w-4xl mx-auto p-6">
+    <div>
       <h1 class="text-3xl font-bold text-center mb-8">
         Formulário de Cadastro
       </h1>
@@ -44,9 +44,11 @@ import { RegistrationFormService } from '../../services/registration-form.servic
           errorMessage="Informações incompletas."
         >
           <ng-template matStepLabel>Informações Pessoais</ng-template>
-          <app-personal-info-step
-            [formGroup]="formService.personalFormGroup"
-          ></app-personal-info-step>
+          <div class="mt-6">
+            <app-personal-info-step
+              [formGroup]="formService.personalFormGroup"
+            ></app-personal-info-step>
+          </div>
           <div class="mt-4">
             <button matButton matStepperNext>Próximo</button>
           </div>
@@ -59,9 +61,11 @@ import { RegistrationFormService } from '../../services/registration-form.servic
         >
           <ng-template matStepLabel>Endereço</ng-template>
           <ng-template matStepContent>
-            <app-residential-info-step
-              [formGroup]="formService.residentialFormGroup"
-            ></app-residential-info-step>
+            <div class="mt-6">
+              <app-residential-info-step
+                [formGroup]="formService.residentialFormGroup"
+              ></app-residential-info-step>
+            </div>
             <div class="mt-4">
               <button matButton matStepperPrevious>Voltar</button>
               <button matButton matStepperNext class="ml-2">Próximo</button>
@@ -76,9 +80,11 @@ import { RegistrationFormService } from '../../services/registration-form.servic
         >
           <ng-template matStepLabel>Profissional</ng-template>
           <ng-template matStepContent>
-            <app-professional-info-step
-              [formGroup]="formService.professionalFormGroup"
-            ></app-professional-info-step>
+            <div class="mt-6">
+              <app-professional-info-step
+                [formGroup]="formService.professionalFormGroup"
+              ></app-professional-info-step>
+            </div>
             <div class="mt-4">
               <button matButton matStepperPrevious>Voltar</button>
               <button

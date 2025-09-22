@@ -1,82 +1,87 @@
-# AdminSage
+# Admin Sage
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+<a alt="Angular logo" href="https://angular.dev" target="_blank" rel="noreferrer"><img src="https://angular.dev/assets/images/press-kit/angular_wordmark_gradient.png" width="120"></a>
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+**Admin Sage** é uma aplicação moderna em [Angular 20](https://angular.dev) construída com melhores práticas atuais. Este projeto fornece uma interface de multi-step forms (sage) para coleta de dados administrativos, incluindo informações pessoais, endereços e dados profissionais.
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+O workspace é **Nx standalone**, com foco em modularidade, testes robustos e gerenciamento de estado moderno usando **NgRx Signal Store** e **rxResource**.
 
-## Finish your CI setup
+---
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/TxtkIc2iDi)
+## Tech Stack
 
+* **Framework**: Angular 20
+* **Workspace**: Nx standalone
+* **Estado**: NgRx Signal Store + rxResource
+* **Bundler**: esbuild
+* **Styling**: SCSS
+* **Testing**: Jest (unitário)
+* **Cobertura de testes unitários**: >80%
 
-## Run tasks
+---
 
-To run the dev server for your app, use:
+## Getting Started
+
+### Development Server
 
 ```sh
 npx nx serve admin-sage
 ```
 
-To create a production bundle:
+### Build
 
 ```sh
 npx nx build admin-sage
 ```
 
-To see all available targets to run for a project, run:
+### Testing
 
 ```sh
-npx nx show project admin-sage
+# Unit tests (Jest)
+npx nx test admin-sage
+
+# E2E tests (Cypress)
+npx nx e2e admin-sage-e2e
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
-
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Add new projects
-
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
-
-Use the plugin's generator to create new projects.
-
-To generate a new application, use:
+### Linting
 
 ```sh
-npx nx g @nx/angular:app demo
+npx nx lint admin-sage
 ```
 
-To generate a new library, use:
+---
+
+## Features
+
+* Multi-step form (sage) para coleta de dados administrativos
+* Server-Side Rendering (SSR) e Static Site Generation (SSG)
+* Angular moderno com **standalone components**
+* Gerenciamento de estado com **NgRx Signal Store** + **rxResource**
+* Estilização SCSS responsiva
+* Testes unitários com **Jest** (cobertura mínima de 80%)
+
+---
+
+## Development Tools
+
+### Nx Console
+
+Instale [Nx Console](https://nx.dev/getting-started/editor-setup) para VSCode ou IntelliJ para executar tarefas e gerar código de forma visual.
+
+### Nx Graph
+
+Visualize dependências do workspace:
 
 ```sh
-npx nx g @nx/angular:lib mylib
+npx nx graph
 ```
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
+---
 
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+## Resources
 
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/angular-standalone-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+* [Angular Documentation](https://angular.dev)
+* [NgRx Signals](https://ngrx.io/guide/signals)
+* [RxResource](https://ngrx.io/guide/resource)
+* [Nx Documentation](https://nx.dev)

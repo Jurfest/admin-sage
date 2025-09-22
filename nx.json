@@ -84,8 +84,5 @@
       "unitTestRunner": "jest"
     }
   },
-  "defaultProject": "admin-sage",
-  "tui": {
-    "autoExit": 0
-  }
+  "defaultProject": "admin-sage"
 }

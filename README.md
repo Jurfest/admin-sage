@@ -10,13 +10,13 @@ O workspace é **Nx standalone**, com foco em modularidade, testes robustos e ge
 
 ## Tech Stack
 
-* **Framework**: Angular 20
-* **Workspace**: Nx standalone
-* **Estado**: NgRx Signal Store + rxResource
-* **Bundler**: esbuild
-* **Styling**: SCSS
-* **Testing**: Jest (unitário)
-* **Cobertura de testes unitários**: >80%
+- **Framework**: Angular 20
+- **Workspace**: Nx standalone
+- **Estado**: NgRx Signal Store + rxResource
+- **Bundler**: esbuild
+- **Styling**: SCSS
+- **Testing**: Jest (unitário)
+- **Cobertura de testes unitários**: >80%
 
 ---
 
@@ -54,12 +54,12 @@ npx nx lint admin-sage
 
 ## Features
 
-* Multi-step form (sage) para coleta de dados administrativos
-* Server-Side Rendering (SSR) e Static Site Generation (SSG)
-* Angular moderno com **standalone components**
-* Gerenciamento de estado com **NgRx Signal Store** + **rxResource**
-* Estilização SCSS responsiva
-* Testes unitários com **Jest** (cobertura mínima de 80%)
+- Multi-step form (sage) para coleta de dados administrativos
+- Server-Side Rendering (SSR) e Static Site Generation (SSG)
+- Angular moderno com **standalone components**
+- Gerenciamento de estado com **NgRx Signal Store** + **rxResource**
+- Estilização SCSS responsiva
+- Testes unitários com **Jest** (cobertura mínima de 80%)
 
 ---
 
@@ -81,7 +81,7 @@ npx nx graph
 
 ## Resources
 
-* [Angular Documentation](https://angular.dev)
-* [NgRx Signals](https://ngrx.io/guide/signals)
-* [RxResource](https://ngrx.io/guide/resource)
-* [Nx Documentation](https://nx.dev)
+- [Angular Documentation](https://angular.dev)
+- [NgRx Signals](https://ngrx.io/guide/signals)
+- [RxResource](https://ngrx.io/guide/resource)
+- [Nx Documentation](https://nx.dev)

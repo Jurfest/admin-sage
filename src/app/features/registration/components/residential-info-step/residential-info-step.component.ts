@@ -17,11 +17,9 @@ import {
   distinctUntilChanged,
   filter,
   map,
-  switchMap,
   tap,
 } from 'rxjs/operators';
 
-import { ZipCodeService } from '../../services/zip-code.service';
 import { ZipCodeStore } from '../../+state/zip-code.store';
 
 @Component({
@@ -94,7 +92,6 @@ import { ZipCodeStore } from '../../+state/zip-code.store';
 })
 export class ResidentialInfoStepComponent implements OnInit {
   formGroup = input.required<FormGroup>();
-  private zipCodeService = inject(ZipCodeService);
   private destroyRef = inject(DestroyRef);
   private store = inject(ZipCodeStore);
 

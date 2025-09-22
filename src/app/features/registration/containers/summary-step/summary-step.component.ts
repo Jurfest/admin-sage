@@ -5,8 +5,12 @@ import {
   signal,
   effect,
   computed,
+  OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -124,33 +128,39 @@ import { MatIconModule } from '@angular/material/icon';
     </div>
   `,
 })
-export class SummaryStepComponent {
+export class SummaryStepComponent implements OnInit, OnDestroy {
   formGroup = input.required<FormGroup>();
+  private destroy$ = new Subject<void>();
 
   personalInfo = signal<any>({});
   residentialInfo = signal<any>({});
   professionalInfo = signal<any>({});
   isFormValid = signal(false);
 
-  constructor() {
-    effect(() => {
-      const form = this.formGroup();
-      if (!form) return;
+  ngOnInit(): void {
+    const form = this.formGroup();
+    if (!form) return;
 
-      // Update signals with current values
+    // Update signals with current values
+    this.personalInfo.set(form.get('personal')?.value || {});
+    this.residentialInfo.set(form.get('residential')?.value || {});
+    this.professionalInfo.set(form.get('professional')?.value || {});
+    this.isFormValid.set(form.valid);
+
+    // Subscribe to form changes
+    form.valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
       this.personalInfo.set(form.get('personal')?.value || {});
       this.residentialInfo.set(form.get('residential')?.value || {});
       this.professionalInfo.set(form.get('professional')?.value || {});
       this.isFormValid.set(form.valid);
-
-      // Subscribe to form changes
-      form.valueChanges.subscribe(() => {
-        this.personalInfo.set(form.get('personal')?.value || {});
-        this.residentialInfo.set(form.get('residential')?.value || {});
-        this.professionalInfo.set(form.get('professional')?.value || {});
-        this.isFormValid.set(form.valid);
-      });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   formatDate(date: any): string {

@@ -13,12 +13,7 @@ import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
-import {
-  provideRouter,
-  withComponentInputBinding,
-  withInMemoryScrolling,
-  withRouterConfig,
-} from '@angular/router';
+import { provideRouter } from '@angular/router';
 
 import { appRoutes } from './app.routes';
 import { mockApiInterceptor } from './core/interceptors/mock-api.interceptor';
@@ -28,17 +23,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(
-      appRoutes,
-      withRouterConfig({
-        onSameUrlNavigation: 'reload',
-      }),
-      withComponentInputBinding(),
-      withInMemoryScrolling({
-        anchorScrolling: 'enabled',
-        scrollPositionRestoration: 'enabled',
-      })
-    ),
+    provideRouter(appRoutes),
     provideHttpClient(withInterceptors([mockApiInterceptor]), withFetch()),
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },
   ],

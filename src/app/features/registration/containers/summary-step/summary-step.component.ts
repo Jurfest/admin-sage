@@ -1,20 +1,19 @@
+import { CommonModule } from '@angular/common';
 import {
-  Component,
   ChangeDetectionStrategy,
-  input,
-  signal,
-  effect,
-  computed,
-  OnInit,
+  Component,
+  inject,
   OnDestroy,
+  OnInit,
+  signal,
 } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+
+import { RegistrationFormService } from '../../services/registration-form.service';
 
 @Component({
   selector: 'app-summary-step',
@@ -129,7 +128,7 @@ import { MatIconModule } from '@angular/material/icon';
   `,
 })
 export class SummaryStepComponent implements OnInit, OnDestroy {
-  formGroup = input.required<FormGroup>();
+  private formService = inject(RegistrationFormService);
   private destroy$ = new Subject<void>();
 
   personalInfo = signal<any>({});
@@ -138,8 +137,7 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
   isFormValid = signal(false);
 
   ngOnInit(): void {
-    const form = this.formGroup();
-    if (!form) return;
+    const form = this.formService.registrationForm;
 
     // Update signals with current values
     this.personalInfo.set(form.get('personal')?.value || {});
@@ -148,9 +146,7 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
     this.isFormValid.set(form.valid);
 
     // Subscribe to form changes
-    form.valueChanges.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(() => {
+    form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
       this.personalInfo.set(form.get('personal')?.value || {});
       this.residentialInfo.set(form.get('residential')?.value || {});
       this.professionalInfo.set(form.get('professional')?.value || {});

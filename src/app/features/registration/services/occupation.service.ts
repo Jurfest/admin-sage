@@ -22,4 +22,6 @@ export class OccupationService {
   occupations = computed(
     () => this.occupationsResource.value() ?? ([] as Occupation[])
   );
+
+  isLoading = this.occupationsResource.isLoading;
 }

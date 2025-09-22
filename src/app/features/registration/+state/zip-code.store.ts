@@ -10,6 +10,7 @@ import {
 
 import { ZipCodeResponse } from '../models/registration.models';
 import { ZipCodeService } from '../services/zip-code.service';
+import { LoadingStore } from '../../../shared/stores/loading.store';
 
 export interface ZipCodeState {
   zipCode: string;
@@ -29,9 +30,10 @@ export const ZipCodeStore = signalStore(
     isLoading: false,
   }),
 
-  // inject service
+  // inject services
   withProps(() => ({
     _zipCodeService: inject(ZipCodeService),
+    _loadingStore: inject(LoadingStore),
   })),
 
   // methods
@@ -40,17 +42,20 @@ export const ZipCodeStore = signalStore(
       if (zipcode === store.zipCode()) return;
 
       patchState(store, { zipCode: zipcode, isLoading: true, error: null });
+      store._loadingStore.setLoading(true);
 
       try {
         const data = await firstValueFrom(
           store._zipCodeService.lookup(zipcode)
         );
         patchState(store, { data, isLoading: false });
+        store._loadingStore.setLoading(false);
       } catch (error: unknown) {
         patchState(store, {
           error: 'Failed to fetch zip code',
           isLoading: false,
         });
+        store._loadingStore.setLoading(false);
         console.error(error);
       }
     },

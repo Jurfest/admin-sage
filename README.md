@@ -40,8 +40,6 @@ npx nx build admin-sage
 # Unit tests (Jest)
 npx nx test admin-sage
 
-# E2E tests (Cypress)
-npx nx e2e admin-sage-e2e
 ```
 
 ### Linting

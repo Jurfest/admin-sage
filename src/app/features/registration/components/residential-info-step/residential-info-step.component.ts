@@ -11,7 +11,14 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  filter,
+  map,
+  switchMap,
+  tap,
+} from 'rxjs/operators';
 
 import { ZipCodeService } from '../../services/zip-code.service';
 
@@ -108,6 +115,5 @@ export class ResidentialInfoStepComponent implements OnInit {
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
-
   }
 }

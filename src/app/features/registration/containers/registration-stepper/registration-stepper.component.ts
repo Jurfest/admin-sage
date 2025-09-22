@@ -37,7 +37,11 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
         Formulário de Cadastro
       </h1>
 
-      <mat-stepper [formGroup]="registrationForm" orientation="horizontal" #stepper>
+      <mat-stepper
+        [formGroup]="registrationForm"
+        orientation="horizontal"
+        #stepper
+      >
         <mat-step
           formGroupName="personal"
           [stepControl]="personalFormGroup()"
@@ -83,7 +87,9 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
           <app-summary-step [formGroup]="registrationForm"></app-summary-step>
           <div class="mt-4">
             <button matButton matStepperPrevious>Voltar</button>
-            <button matButton (click)="stepper.reset()" class="ml-2">Reiniciar</button>
+            <button matButton (click)="stepper.reset()" class="ml-2">
+              Reiniciar
+            </button>
           </div>
         </mat-step>
       </mat-stepper>

@@ -8,12 +8,18 @@ import {
   provideBrowserGlobalErrorListeners,
   provideZoneChangeDetection,
 } from '@angular/core';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {
   provideClientHydration,
   withEventReplay,
 } from '@angular/platform-browser';
-import { provideRouter, withComponentInputBinding, withEnabledBlockingInitialNavigation, withInMemoryScrolling, withRouterConfig } from '@angular/router';
-import { MAT_DATE_LOCALE } from '@angular/material/core';
+import {
+  provideRouter,
+  withComponentInputBinding,
+  withEnabledBlockingInitialNavigation,
+  withInMemoryScrolling,
+  withRouterConfig,
+} from '@angular/router';
 
 import { appRoutes } from './app.routes';
 import { mockApiInterceptor } from './core/interceptors/mock-api.interceptor';

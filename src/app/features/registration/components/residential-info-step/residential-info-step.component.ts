@@ -11,7 +11,7 @@ import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { debounceTime, distinctUntilChanged, filter } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { ZipCodeService } from '../../services/zip-code.service';
 
@@ -94,21 +94,20 @@ export class ResidentialInfoStepComponent implements OnInit {
       ?.valueChanges.pipe(
         debounceTime(500),
         distinctUntilChanged(),
-        filter((value) => value && value.replace(/\D/g, '').length === 8),
+        map((value) => (value ?? '').replace(/\D/g, '')), // keep only digits
+        filter((digits) => digits.length === 8),
+        switchMap((zipCode) => this.zipCodeService.lookupZipCode(zipCode)),
+        tap((response) => {
+          this.formGroup().patchValue({
+            address: response.address,
+            neighborhood: response.neighborhood,
+            city: response.city,
+            state: response.state,
+          });
+        }),
         takeUntilDestroyed(this.destroyRef)
       )
-      .subscribe((zipCode) => {
-        this.zipCodeService
-          .lookupZipCode(zipCode)
-          .pipe(takeUntilDestroyed(this.destroyRef))
-          .subscribe((response) => {
-            this.formGroup().patchValue({
-              address: response.address,
-              neighborhood: response.neighborhood,
-              city: response.city,
-              state: response.state,
-            });
-          });
-      });
+      .subscribe();
+
   }
 }

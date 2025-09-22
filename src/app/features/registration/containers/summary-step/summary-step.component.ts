@@ -2,7 +2,8 @@ import {
   Component,
   ChangeDetectionStrategy,
   input,
-  computed,
+  signal,
+  effect,
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -110,11 +111,27 @@ import { MatCardModule } from '@angular/material/card';
 export class SummaryStepComponent {
   formGroup = input.required<FormGroup>();
 
-  personalInfo = computed(() => this.formGroup()?.get('personal')?.value);
-  residentialInfo = computed(() => this.formGroup()?.get('residential')?.value);
-  professionalInfo = computed(
-    () => this.formGroup()?.get('professional')?.value
-  );
+  personalInfo = signal<any>({});
+  residentialInfo = signal<any>({});
+  professionalInfo = signal<any>({});
+
+  constructor() {
+    effect(() => {
+      const form = this.formGroup();
+      
+      // Update signals with current values
+      this.personalInfo.set(form?.get('personal')?.value || {});
+      this.residentialInfo.set(form?.get('residential')?.value || {});
+      this.professionalInfo.set(form?.get('professional')?.value || {});
+      
+      // Subscribe to form changes
+      form?.valueChanges.subscribe(() => {
+        this.personalInfo.set(form.get('personal')?.value || {});
+        this.residentialInfo.set(form.get('residential')?.value || {});
+        this.professionalInfo.set(form.get('professional')?.value || {});
+      });
+    });
+  }
 
   formatDate(date: any): string {
     if (!date) return '';

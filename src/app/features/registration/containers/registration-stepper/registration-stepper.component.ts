@@ -2,7 +2,6 @@ import {
   Component,
   ChangeDetectionStrategy,
   inject,
-  computed,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -51,12 +50,12 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
       >
         <mat-step
           formGroupName="personal"
-          [stepControl]="personalFormGroup()"
+          [stepControl]="personalFormGroup"
           errorMessage="Informações incompletas."
         >
           <ng-template matStepLabel>Informações Pessoais</ng-template>
           <app-personal-info-step
-            [formGroup]="personalFormGroup()"
+            [formGroup]="personalFormGroup"
           ></app-personal-info-step>
           <div class="mt-4">
             <button matButton matStepperNext>Próximo</button>
@@ -65,13 +64,13 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
 
         <mat-step
           formGroupName="residential"
-          [stepControl]="residentialFormGroup()"
+          [stepControl]="residentialFormGroup"
           errorMessage="Informações incompletas."
         >
           <ng-template matStepLabel>Endereço</ng-template>
           <ng-template matStepContent>
             <app-residential-info-step
-              [formGroup]="residentialFormGroup()"
+              [formGroup]="residentialFormGroup"
             ></app-residential-info-step>
             <div class="mt-4">
               <button matButton matStepperPrevious>Voltar</button>
@@ -82,13 +81,13 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
 
         <mat-step
           formGroupName="professional"
-          [stepControl]="professionalFormGroup()"
+          [stepControl]="professionalFormGroup"
           errorMessage="Informações incompletas."
         >
           <ng-template matStepLabel>Profissional</ng-template>
           <ng-template matStepContent>
             <app-professional-info-step
-              [formGroup]="professionalFormGroup()"
+              [formGroup]="professionalFormGroup"
             ></app-professional-info-step>
             <div class="mt-4">
               <button matButton matStepperPrevious>Voltar</button>
@@ -114,15 +113,17 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
 export class RegistrationStepperComponent {
   private fb = inject(FormBuilder);
 
-  personalFormGroup = computed(
-    () => this.registrationForm.get('personal') as FormGroup
-  );
-  residentialFormGroup = computed(
-    () => this.registrationForm.get('residential') as FormGroup
-  );
-  professionalFormGroup = computed(
-    () => this.registrationForm.get('professional') as FormGroup
-  );
+  get personalFormGroup() {
+    return this.registrationForm.controls.personal as FormGroup;
+  }
+
+  get residentialFormGroup() {
+    return this.registrationForm.controls.residential as FormGroup;
+  }
+
+  get professionalFormGroup() {
+    return this.registrationForm.controls.professional as FormGroup;
+  }
 
   registrationForm = this.fb.group({
     personal: this.fb.group({

@@ -1,6 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 
 import SummaryStepComponent from './summary-step.component';
 import { RegistrationFormService } from '../../services/registration-form.service';
@@ -56,7 +61,6 @@ describe('SummaryStepComponent', () => {
         salary: new FormControl('', Validators.required),
       }),
     } as unknown as RegistrationFormService;
-
 
     TestBed.configureTestingModule({
       imports: [ReactiveFormsModule],

@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 
 export const errorInterceptor: HttpInterceptorFn = (
   req,
-  next,
+  next
 ): Observable<HttpEvent<unknown>> => {
   const snackBar = inject(MatSnackBar);
 
@@ -38,16 +38,18 @@ export const errorInterceptor: HttpInterceptorFn = (
       } else if (error instanceof Error) {
         openSnackBar(`Ocorreu um erro inesperado: ${error.message}`);
       } else {
-        openSnackBar('Ocorreu um erro desconhecido. Tente novamente mais tarde.');
+        openSnackBar(
+          'Ocorreu um erro desconhecido. Tente novamente mais tarde.'
+        );
       }
       return throwError(() => error);
-    }),
+    })
   );
 };
 
 const getHttpErrorMessage = (
   error: HttpErrorResponse,
-  url: string,
+  url: string
 ): string | null => {
   switch (error.status) {
     case 404:

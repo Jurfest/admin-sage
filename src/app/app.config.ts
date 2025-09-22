@@ -16,7 +16,6 @@ import {
 import {
   provideRouter,
   withComponentInputBinding,
-  withEnabledBlockingInitialNavigation,
   withInMemoryScrolling,
   withRouterConfig,
 } from '@angular/router';
@@ -35,7 +34,6 @@ export const appConfig: ApplicationConfig = {
         onSameUrlNavigation: 'reload',
       }),
       withComponentInputBinding(),
-      withEnabledBlockingInitialNavigation(),
       withInMemoryScrolling({
         anchorScrolling: 'enabled',
         scrollPositionRestoration: 'enabled',

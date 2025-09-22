@@ -28,7 +28,17 @@ export class CustomValidators {
     return (control: AbstractControl): ValidationErrors | null => {
       if (!control.value) return null;
       const phone = control.value.replace(/\D/g, '');
-      return phone.length >= 10 && phone.length <= 11 ? null : { phone: true };
+      // Brazilian phone: 10 digits (residential) or 11 digits (mobile)
+      // Format: (XX) XXXX-XXXX or (XX) 9XXXX-XXXX
+      if (phone.length === 10) {
+        // Residential: area code + 8 digits
+        return /^\d{2}[2-5]\d{7}$/.test(phone) ? null : { phone: true };
+      }
+      if (phone.length === 11) {
+        // Mobile: area code + 9 + 8 digits
+        return /^\d{2}9\d{8}$/.test(phone) ? null : { phone: true };
+      }
+      return { phone: true };
     };
   }
 }

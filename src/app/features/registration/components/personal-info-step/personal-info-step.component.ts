@@ -83,13 +83,16 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
         <input
           matInput
           formControlName="phoneNumber"
-          mask="(00) 00000-0000"
-          placeholder="(00) 00000-0000"
+          mask="(00) 0000-0000||(00) 00000-0000"
+          placeholder="(00) 0000-0000 ou (00) 00000-0000"
         />
+
         @if (formGroup().get('phoneNumber')?.hasError('required')) {
         <mat-error>Número de telefone é obrigatório</mat-error>
         } @if (formGroup().get('phoneNumber')?.hasError('phone')) {
-        <mat-error>Número de telefone inválido</mat-error>
+        <mat-error
+          >Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX</mat-error
+        >
         }
       </mat-form-field>
     </form>

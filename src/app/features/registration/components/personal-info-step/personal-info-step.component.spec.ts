@@ -59,7 +59,9 @@ describe('PersonalInfoStepComponent', () => {
     fixture.detectChanges();
 
     const errorElement = fixture.nativeElement.querySelector('mat-error');
-    expect(errorElement?.textContent?.trim()).toBe('Nome completo é obrigatório');
+    expect(errorElement?.textContent?.trim()).toBe(
+      'Nome completo é obrigatório'
+    );
   });
 
   it('should display minlength error for fullName', () => {
@@ -68,7 +70,9 @@ describe('PersonalInfoStepComponent', () => {
     fixture.detectChanges();
 
     const errorElement = fixture.nativeElement.querySelector('mat-error');
-    expect(errorElement?.textContent?.trim()).toBe('Nome deve ter pelo menos 2 caracteres');
+    expect(errorElement?.textContent?.trim()).toBe(
+      'Nome deve ter pelo menos 2 caracteres'
+    );
   });
 
   it('should display required error for dateOfBirth', () => {
@@ -76,8 +80,8 @@ describe('PersonalInfoStepComponent', () => {
     fixture.detectChanges();
 
     const errorElements = fixture.nativeElement.querySelectorAll('mat-error');
-    const dateError = Array.from(errorElements).find((el: any) => 
-      el.textContent?.trim() === 'Data de nascimento é obrigatória'
+    const dateError = Array.from(errorElements).find(
+      (el: any) => el.textContent?.trim() === 'Data de nascimento é obrigatória'
     );
     expect(dateError).toBeTruthy();
   });
@@ -87,8 +91,8 @@ describe('PersonalInfoStepComponent', () => {
     fixture.detectChanges();
 
     const errorElements = fixture.nativeElement.querySelectorAll('mat-error');
-    const cpfError = Array.from(errorElements).find((el: any) => 
-      el.textContent?.trim() === 'CPF é obrigatório'
+    const cpfError = Array.from(errorElements).find(
+      (el: any) => el.textContent?.trim() === 'CPF é obrigatório'
     );
     expect(cpfError).toBeTruthy();
   });
@@ -98,8 +102,8 @@ describe('PersonalInfoStepComponent', () => {
     fixture.detectChanges();
 
     const errorElements = fixture.nativeElement.querySelectorAll('mat-error');
-    const phoneError = Array.from(errorElements).find((el: any) => 
-      el.textContent?.trim() === 'Número de telefone é obrigatório'
+    const phoneError = Array.from(errorElements).find(
+      (el: any) => el.textContent?.trim() === 'Número de telefone é obrigatório'
     );
     expect(phoneError).toBeTruthy();
   });
@@ -109,7 +113,7 @@ describe('PersonalInfoStepComponent', () => {
       fullName: 'João Silva',
       dateOfBirth: new Date('1990-01-01'),
       cpf: '123.456.789-09',
-      phoneNumber: '(11) 99999-9999'
+      phoneNumber: '(11) 99999-9999',
     });
 
     expect(testFormGroup.valid).toBeTruthy();

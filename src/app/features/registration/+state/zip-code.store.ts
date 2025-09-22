@@ -42,7 +42,9 @@ export const ZipCodeStore = signalStore(
       patchState(store, { zipCode: zipcode, isLoading: true, error: null });
 
       try {
-        const data = await firstValueFrom(store._zipCodeService.lookup(zipcode));
+        const data = await firstValueFrom(
+          store._zipCodeService.lookup(zipcode)
+        );
         patchState(store, { data, isLoading: false });
       } catch (error: unknown) {
         patchState(store, {
@@ -54,4 +56,3 @@ export const ZipCodeStore = signalStore(
     },
   }))
 );
-

@@ -25,7 +25,7 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
-      useValue: {showError: true},
+      useValue: { showError: true },
     },
   ],
   imports: [
@@ -52,9 +52,9 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
         <mat-step
           formGroupName="personal"
           [stepControl]="personalFormGroup()"
-          label="Informações Pessoais"
           errorMessage="Informações incompletas."
         >
+          <ng-template matStepLabel>Informações Pessoais</ng-template>
           <app-personal-info-step
             [formGroup]="personalFormGroup()"
           ></app-personal-info-step>
@@ -66,34 +66,39 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
         <mat-step
           formGroupName="residential"
           [stepControl]="residentialFormGroup()"
-          label="Endereço"
           errorMessage="Informações incompletas."
         >
-          <app-residential-info-step
-            [formGroup]="residentialFormGroup()"
-          ></app-residential-info-step>
-          <div class="mt-4">
-            <button matButton matStepperPrevious>Voltar</button>
-            <button matButton matStepperNext class="ml-2">Próximo</button>
-          </div>
+          <ng-template matStepLabel>Endereço</ng-template>
+          <ng-template matStepContent>
+            <app-residential-info-step
+              [formGroup]="residentialFormGroup()"
+            ></app-residential-info-step>
+            <div class="mt-4">
+              <button matButton matStepperPrevious>Voltar</button>
+              <button matButton matStepperNext class="ml-2">Próximo</button>
+            </div>
+          </ng-template>
         </mat-step>
 
         <mat-step
           formGroupName="professional"
           [stepControl]="professionalFormGroup()"
-          label="Profissional"
           errorMessage="Informações incompletas."
         >
-          <app-professional-info-step
-            [formGroup]="professionalFormGroup()"
-          ></app-professional-info-step>
-          <div class="mt-4">
-            <button matButton matStepperPrevious>Voltar</button>
-            <button matButton matStepperNext class="ml-2">Próximo</button>
-          </div>
+          <ng-template matStepLabel>Profissional</ng-template>
+          <ng-template matStepContent>
+            <app-professional-info-step
+              [formGroup]="professionalFormGroup()"
+            ></app-professional-info-step>
+            <div class="mt-4">
+              <button matButton matStepperPrevious>Voltar</button>
+              <button matButton matStepperNext class="ml-2">Próximo</button>
+            </div>
+          </ng-template>
         </mat-step>
 
-        <mat-step label="Resumo">
+        <mat-step>
+          <ng-template matStepLabel>Resumo</ng-template>
           <app-summary-step [formGroup]="registrationForm"></app-summary-step>
           <div class="mt-4">
             <button matButton matStepperPrevious>Voltar</button>

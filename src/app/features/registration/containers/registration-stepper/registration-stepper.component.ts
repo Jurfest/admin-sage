@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 import { CustomValidators } from '../../../../validators/custom-validators';
 import { PersonalInfoStepComponent } from '../../components/personal-info-step/personal-info-step.component';
@@ -21,6 +22,12 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
 
 @Component({
   selector: 'app-registration-stepper',
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: {showError: true},
+    },
+  ],
   imports: [
     ReactiveFormsModule,
     MatStepperModule,
@@ -46,6 +53,7 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
           formGroupName="personal"
           [stepControl]="personalFormGroup()"
           label="Informações Pessoais"
+          errorMessage="Informações incompletas."
         >
           <app-personal-info-step
             [formGroup]="personalFormGroup()"
@@ -59,6 +67,7 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
           formGroupName="residential"
           [stepControl]="residentialFormGroup()"
           label="Endereço"
+          errorMessage="Informações incompletas."
         >
           <app-residential-info-step
             [formGroup]="residentialFormGroup()"
@@ -73,6 +82,7 @@ import { SummaryStepComponent } from '../summary-step/summary-step.component';
           formGroupName="professional"
           [stepControl]="professionalFormGroup()"
           label="Profissional"
+          errorMessage="Informações incompletas."
         >
           <app-professional-info-step
             [formGroup]="professionalFormGroup()"

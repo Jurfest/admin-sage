@@ -15,7 +15,7 @@ export class ZipCodeService {
   private http = inject(HttpClient);
   private baseUrl = environment.api.baseUrl;
 
-  lookupZipCode(zipcode: string): Observable<ZipCodeResponse> {
+  lookup(zipcode: string): Observable<ZipCodeResponse> {
     const url = `${this.baseUrl}${environment.api.endpoints.zipcode}`;
     return this.http
       .post<ZipCodeApiResponse>(url, { zipcode })

@@ -5,6 +5,7 @@ import {
   inject,
   input,
   OnInit,
+  effect,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +22,7 @@ import {
 } from 'rxjs/operators';
 
 import { ZipCodeService } from '../../services/zip-code.service';
+import { ZipCodeStore } from '../../+state/zip-code.store';
 
 @Component({
   selector: 'app-residential-info-step',
@@ -94,6 +96,7 @@ export class ResidentialInfoStepComponent implements OnInit {
   formGroup = input.required<FormGroup>();
   private zipCodeService = inject(ZipCodeService);
   private destroyRef = inject(DestroyRef);
+  private store = inject(ZipCodeStore);
 
   ngOnInit(): void {
     this.formGroup()
@@ -103,17 +106,23 @@ export class ResidentialInfoStepComponent implements OnInit {
         distinctUntilChanged(),
         map((value) => (value ?? '').replace(/\D/g, '')), // keep only digits
         filter((digits) => digits.length === 8),
-        switchMap((zipCode) => this.zipCodeService.lookupZipCode(zipCode)),
-        tap((response) => {
-          this.formGroup().patchValue({
-            address: response.address,
-            neighborhood: response.neighborhood,
-            city: response.city,
-            state: response.state,
-          });
-        }),
+        tap((zipCode) => this.store.lookupZipCode(zipCode)),
         takeUntilDestroyed(this.destroyRef)
       )
       .subscribe();
+  }
+
+  constructor() {
+    effect(() => {
+      const data = this.store.data();
+      if (data?.address) {
+        this.formGroup().patchValue({
+          address: data.address,
+          neighborhood: data.neighborhood,
+          city: data.city,
+          state: data.state,
+        });
+      }
+    });
   }
 }

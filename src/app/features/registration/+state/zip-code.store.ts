@@ -56,7 +56,6 @@ export const ZipCodeStore = signalStore(
           isLoading: false,
         });
         store._loadingStore.setLoading(false);
-        console.error(error);
       }
     },
   }))

@@ -1,4 +1,10 @@
-import { signalStore, withState, withMethods, patchState, withComputed } from '@ngrx/signals';
+import {
+  signalStore,
+  withState,
+  withMethods,
+  patchState,
+  withComputed,
+} from '@ngrx/signals';
 import { computed, inject } from '@angular/core';
 import { OccupationService } from '../../features/registration/services/occupation.service';
 
@@ -17,8 +23,8 @@ export const LoadingStore = signalStore(
   withComputed((store) => {
     const occupationService = inject(OccupationService);
     return {
-      isAnyLoading: computed(() => 
-        store.isLoading() || occupationService.isLoading()
+      isAnyLoading: computed(
+        () => store.isLoading() || occupationService.isLoading()
       ),
     };
   })

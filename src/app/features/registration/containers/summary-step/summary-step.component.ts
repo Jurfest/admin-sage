@@ -179,34 +179,84 @@ export class SummaryStepComponent {
       doc.setFontSize(16);
       doc.text('Informações Pessoais', 20, 40);
       doc.setFontSize(12);
-      doc.text(`Nome: ${this.personalInfo().fullName || 'Não informado'}`, 20, 50);
-      doc.text(`Data de Nascimento: ${this.formatDate(this.personalInfo().dateOfBirth) || 'Não informado'}`, 20, 60);
+      doc.text(
+        `Nome: ${this.personalInfo().fullName || 'Não informado'}`,
+        20,
+        50
+      );
+      doc.text(
+        `Data de Nascimento: ${
+          this.formatDate(this.personalInfo().dateOfBirth) || 'Não informado'
+        }`,
+        20,
+        60
+      );
       doc.text(`CPF: ${this.personalInfo().cpf || 'Não informado'}`, 20, 70);
-      doc.text(`Telefone: ${this.personalInfo().phoneNumber || 'Não informado'}`, 20, 80);
+      doc.text(
+        `Telefone: ${this.personalInfo().phoneNumber || 'Não informado'}`,
+        20,
+        80
+      );
 
       // Residential Info
       doc.setFontSize(16);
       doc.text('Informações de Endereço', 20, 100);
       doc.setFontSize(12);
-      doc.text(`CEP: ${this.residentialInfo().zipCode || 'Não informado'}`, 20, 110);
-      doc.text(`Endereço: ${this.residentialInfo().address || 'Não informado'}`, 20, 120);
-      doc.text(`Bairro: ${this.residentialInfo().neighborhood || 'Não informado'}`, 20, 130);
-      doc.text(`Cidade: ${this.residentialInfo().city || 'Não informado'}`, 20, 140);
-      doc.text(`Estado: ${this.residentialInfo().state || 'Não informado'}`, 20, 150);
+      doc.text(
+        `CEP: ${this.residentialInfo().zipCode || 'Não informado'}`,
+        20,
+        110
+      );
+      doc.text(
+        `Endereço: ${this.residentialInfo().address || 'Não informado'}`,
+        20,
+        120
+      );
+      doc.text(
+        `Bairro: ${this.residentialInfo().neighborhood || 'Não informado'}`,
+        20,
+        130
+      );
+      doc.text(
+        `Cidade: ${this.residentialInfo().city || 'Não informado'}`,
+        20,
+        140
+      );
+      doc.text(
+        `Estado: ${this.residentialInfo().state || 'Não informado'}`,
+        20,
+        150
+      );
 
       // Professional Info
       doc.setFontSize(16);
       doc.text('Informações Profissionais', 20, 170);
       doc.setFontSize(12);
-      doc.text(`Profissão: ${this.professionalInfo().occupation || 'Não informado'}`, 20, 180);
-      doc.text(`Empresa: ${this.professionalInfo().company || 'Não informado'}`, 20, 190);
-      doc.text(`Salário: ${this.formatSalary(this.professionalInfo().salary) || 'Não informado'}`, 20, 200);
+      doc.text(
+        `Profissão: ${this.professionalInfo().occupation || 'Não informado'}`,
+        20,
+        180
+      );
+      doc.text(
+        `Empresa: ${this.professionalInfo().company || 'Não informado'}`,
+        20,
+        190
+      );
+      doc.text(
+        `Salário: ${
+          this.formatSalary(this.professionalInfo().salary) || 'Não informado'
+        }`,
+        20,
+        200
+      );
 
       // Save PDF
       doc.save('formulario-cadastro.pdf');
     } catch (error) {
       console.error('Erro ao gerar PDF:', error);
-      alert('Erro ao gerar PDF. Verifique se a biblioteca jsPDF está instalada.');
+      alert(
+        'Erro ao gerar PDF. Verifique se a biblioteca jsPDF está instalada.'
+      );
     }
   }
 }

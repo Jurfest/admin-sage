@@ -1,7 +1,8 @@
-import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SpinnerComponent } from './ui/spinner/spinner.component';
+
 import { LoadingStore } from './shared/stores/loading.store';
+import { SpinnerComponent } from './ui/spinner/spinner.component';
 
 @Component({
   imports: [RouterModule, SpinnerComponent],

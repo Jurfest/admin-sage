@@ -12,10 +12,10 @@ export const mockApiInterceptor: HttpInterceptorFn = (req, next) => {
     return next(req);
   }
 
-  // Mock zipcode endpoint
-  if (req.url.includes('/api/v1/zipcode') && req.method === 'POST') {
-    const body = req.body as { zipcode: string };
-    const mockData = getMockZipCode(body.zipcode);
+  // Mock zipcodes endpoint
+  if (req.url.includes('/api/v1/zipcodes') && req.method === 'GET') {
+    const zipcode = extractZipcode(req.url);
+    const mockData = getMockZipCode(zipcode);
     return of(new HttpResponse({ status: 200, body: mockData })).pipe(
       delay(500)
     );
@@ -31,6 +31,10 @@ export const mockApiInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req);
 };
+
+function extractZipcode(url: string) {
+  return url.split('/').pop();
+}
 
 function getMockZipCode(zipcode: string): ZipCodeApiResponse {
   const mockResponse: ZipCodeApiResponse = {

@@ -59,12 +59,12 @@ describe('mockApiInterceptor', () => {
     environment.useMockApi = true; // reset for other tests
   }));
 
-  it('should return mocked zip code data for POST /api/v1/zipcode', fakeAsync(() => {
+  it('should return mocked zip code data for GET /api/v1/zipcodes', fakeAsync(() => {
     const mockZip = '12345678';
 
     let response: ZipCodeApiResponse | undefined;
     httpClient
-      .post<ZipCodeApiResponse>('/api/v1/zipcode', { zipcode: mockZip })
+      .get<ZipCodeApiResponse>(`/api/v1/zipcodes/${mockZip}`)
       .subscribe((res) => (response = res));
 
     tick(500); // account for interceptor delay

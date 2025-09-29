@@ -37,7 +37,7 @@ describe('ZipCodeService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('lookup() should POST and return the data property from response', () => {
+  it('lookup() should GET and return the data property from response', () => {
     const zip = '12345';
     const mockResponse = {
       data: {
@@ -52,14 +52,11 @@ describe('ZipCodeService', () => {
       expect(resp).toEqual(mockResponse.data);
     });
 
-    const expectedUrl = `${environment.api.baseUrl}${environment.api.endpoints.zipcode}`;
+    const expectedUrl = `${environment.api.baseUrl}${environment.api.endpoints.zipcodes}/${zip}`;
     const req = httpTestingController.expectOne(expectedUrl);
 
     // check method
-    expect(req.request.method).toBe('POST');
-
-    // check body
-    expect(req.request.body).toEqual({ zipcode: zip });
+    expect(req.request.method).toBe('GET');
 
     // respond
     req.flush(mockResponse);
@@ -83,11 +80,11 @@ describe('ZipCodeService', () => {
       },
     });
 
-    const expectedUrl = `${environment.api.baseUrl}${environment.api.endpoints.zipcode}`;
+    const expectedUrl = `${environment.api.baseUrl}${environment.api.endpoints.zipcodes}/${zip}`;
     const req = httpTestingController.expectOne(expectedUrl);
 
-    expect(req.request.method).toBe('POST');
-    expect(req.request.body).toEqual({ zipcode: zip });
+    expect(req.request.method).toBe('GET');
+    expect(req.request.url.split('/').pop()).toEqual(zip);
 
     req.flush(null, mockError);
   });

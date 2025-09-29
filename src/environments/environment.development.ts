@@ -4,7 +4,7 @@ export const environment = {
   api: {
     baseUrl: 'http://localhost:3000',
     endpoints: {
-      zipcode: '/api/v1/zipcode',
+      zipcodes: '/api/v1/zipcodes',
       occupations: '/api/v1/occupations',
     },
   },

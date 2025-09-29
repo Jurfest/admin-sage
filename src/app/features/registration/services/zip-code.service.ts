@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 
@@ -16,9 +16,10 @@ export class ZipCodeService {
   private baseUrl = environment.api.baseUrl;
 
   lookup(zipcode: string): Observable<ZipCodeResponse> {
-    const url = `${this.baseUrl}${environment.api.endpoints.zipcode}`;
+    const url = `${this.baseUrl}${environment.api.endpoints.zipcodes}/${zipcode}`;
+
     return this.http
-      .post<ZipCodeApiResponse>(url, { zipcode })
+      .get<ZipCodeApiResponse>(url)
       .pipe(map((response) => response.data));
   }
 }

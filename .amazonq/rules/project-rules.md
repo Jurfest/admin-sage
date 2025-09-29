@@ -1,10 +1,12 @@
 # Admin Sage Project Rules
 
 ## Project Context
+
 This is an Angular 21 (21.0.0-next.x) application using Nx standalone workspace, Angular Material, and Tailwind CSS.
 The project is designed to explore modern Angular features, including Signal Forms, Signals-based state management, and Resource API (httpResource / rxResource / htttpResource) integrations.
 
 ## Development Guidelines
+
 - Use Angular standalone components
 - Follow Angular style guide conventions
 - Use TypeScript strict mode
@@ -15,6 +17,7 @@ The project is designed to explore modern Angular features, including Signal For
 - Apply NgRx Signal Store and/or Resource API for state management and data handling.
 
 ## Code Standards
+
 - Use meaningful variable and function names
 - Add JSDoc comments for public methods
 - Implement robust error handling (HTTP errors, form validation errors, state management failures).

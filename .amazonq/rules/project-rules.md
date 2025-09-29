@@ -16,6 +16,16 @@ The project is designed to explore modern Angular features, including Signal For
 - Prefer Signal Forms for new form implementations (reactive, type-safe, and aligned with Angular 21).
 - Apply NgRx Signal Store and/or Resource API for state management and data handling.
 
+## Signals Guidelines
+
+Signals should be the default reactive primitive in the project.
+Use signals, for example, for the following cases:
+
+- Variables used in the UI (changed) 
+- Retrieved data (API responses, local storage values, or any asynchronous data exposed to components)
+  - Prefer wrapping data in httpResource / rxResource when working with HTTP.
+- Calculated or composed values
+
 ## Code Standards
 
 - Use meaningful variable and function names

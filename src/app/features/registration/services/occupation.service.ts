@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, httpResource } from '@angular/common/http';
 import { computed, inject, Injectable } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 
@@ -9,15 +9,28 @@ import { Occupation } from '../models/registration.models';
   providedIn: 'root',
 })
 export class OccupationService {
-  private http = inject(HttpClient);
+  // private http = inject(HttpClient);
   private baseUrl = environment.api.baseUrl;
 
-  private occupationsResource = rxResource({
-    stream: () => {
-      const url = `${this.baseUrl}${environment.api.endpoints.occupations}`;
-      return this.http.get<Occupation[]>(url);
-    },
-  });
+  // Using rxResource
+  // private occupationsResource = rxResource({
+  //   stream: () => {
+  //     const url = `${this.baseUrl}${environment.api.endpoints.occupations}`;
+  //     return this.http.get<Occupation[]>(url);
+  //   },
+  // });
+
+  private occupationsResource = httpResource<Occupation[]>(
+    () => `${this.baseUrl}${environment.api.endpoints.occupations}`
+  );
+
+  // private occupationsResource = httpResource<Occupation[]>(() => ({
+  //   url: `${this.baseUrl}${environment.api.endpoints.occupations}`,
+  //   method: 'GET',
+  //   headers: {
+  //     accept: 'application/json',
+  //   },
+  // }));
 
   occupations = computed(
     () => this.occupationsResource.value() ?? ([] as Occupation[])

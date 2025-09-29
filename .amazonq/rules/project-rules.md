@@ -21,7 +21,7 @@ The project is designed to explore modern Angular features, including Signal For
 Signals should be the default reactive primitive in the project.
 Use signals, for example, for the following cases:
 
-- Variables used in the UI (changed) 
+- Variables used in the UI (changed)
 - Retrieved data (API responses, local storage values, or any asynchronous data exposed to components)
   - Prefer wrapping data in httpResource / rxResource when working with HTTP.
 - Calculated or composed values

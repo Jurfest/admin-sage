@@ -23,7 +23,8 @@ Use signals, for example, for the following cases:
 
 - Variables used in the UI (changed)
 - Retrieved data (API responses, local storage values, or any asynchronous data exposed to components)
-  - Prefer wrapping data in httpResource / rxResource when working with HTTP.
+  - Prefer wrapping data in httpResource / rxResource when working with HTTP GET method
+  - For POST, PUT, or DELETE, use standard HttpClient requests and update the related signals or stores accordingly
 - Calculated or composed values
 
 ## Code Standards

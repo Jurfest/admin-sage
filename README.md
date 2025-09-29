@@ -27,14 +27,15 @@ O workspace é **Nx standalone**, com foco em modularidade, testes robustos e ge
 ### Installation
 
 ```sh
-npm i --legacy-peer-deps
+npm i -f
 ```
-> [!NOTE] 
-> A flag --legacy-peer-deps é necessária porque estamos utilizando a versão next (pré-lançamento) do
+
+> [!NOTE]
+> A flag -f (ou --force)é necessária porque estamos utilizando a versão next (pré-lançamento) do
 > Angular 21.
-> Como ela ainda não é considerada estável, alguns pacotes de terceiros podem não declarar 
+> Como ela ainda não é considerada estável, alguns pacotes de terceiros podem não declarar
 > compatibilidade total em seus peerDependencies.
-> Essa flag permite instalar as dependências mesmo com possíveis conflitos, garantindo que possamos 
+> Essa flag permite instalar as dependências mesmo com possíveis conflitos, garantindo que possamos
 > explorar e testar recursos modernos, como o Signal Forms, antes da liberação oficial.
 
 ### Development Server

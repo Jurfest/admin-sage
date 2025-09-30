@@ -19,12 +19,7 @@ export interface ProfessionalInfo {
   salary: number;
 }
 
-export interface ZipCodeResponse {
-  address: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-}
+export type ZipCodeResponse = Omit<ResidentialInfo, 'zipCode'>;
 
 export interface ZipCodeApiResponse {
   success: boolean;
@@ -40,4 +35,10 @@ export interface ZipCodeApiResponse {
 export interface Occupation {
   id: string;
   name: string;
+}
+
+export interface Registration {
+  personal: PersonalInfo;
+  residential: ResidentialInfo;
+  professional: ProfessionalInfo;
 }

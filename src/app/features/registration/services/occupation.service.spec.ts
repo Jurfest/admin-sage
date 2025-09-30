@@ -1,14 +1,18 @@
+import { provideHttpClient } from '@angular/common/http';
+import {
+  HttpTestingController,
+  provideHttpClientTesting,
+} from '@angular/common/http/testing';
+import { ApplicationRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { HttpClient } from '@angular/common/http';
-import { of, throwError } from 'rxjs';
 
-import { OccupationService } from './occupation.service';
-import { Occupation } from '../models/registration.models';
 import { environment } from '../../../../environments/environment';
+import { Occupation } from '../models/registration.models';
+import { OccupationService } from './occupation.service';
 
-describe('OccupationService', () => {
+describe('OccupationService (with httpResource)', () => {
   let service: OccupationService;
-  let httpClientMock: { get: jest.Mock };
+  let httpMock: HttpTestingController;
 
   const mockOccupations: Occupation[] = [
     { id: '1', name: 'Developer' },
@@ -16,16 +20,20 @@ describe('OccupationService', () => {
   ];
 
   beforeEach(() => {
-    httpClientMock = { get: jest.fn() };
-
     TestBed.configureTestingModule({
       providers: [
         OccupationService,
-        { provide: HttpClient, useValue: httpClientMock },
+        provideHttpClient(),
+        provideHttpClientTesting(),
       ],
     });
 
     service = TestBed.inject(OccupationService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should be created', () => {
@@ -33,36 +41,43 @@ describe('OccupationService', () => {
   });
 
   it('should load occupations from API', async () => {
-    // Mock HttpClient.get to return observable
-    httpClientMock.get.mockReturnValue(of(mockOccupations));
+    // Trigger resource
+    service.occupations();
 
-    // Wait a tick for rxResource to fetch
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    // let Angular tick so httpResource issues the request
+    TestBed.inject(ApplicationRef).tick();
 
-    expect(httpClientMock.get).toHaveBeenCalledWith(
-      `${environment.api.baseUrl}${environment.api.endpoints.occupations}`
-    );
+    // Expect and flush request
+    httpMock
+      .expectOne(
+        `${environment.api.baseUrl}${environment.api.endpoints.occupations}`
+      )
+      .flush(mockOccupations);
 
-    // occupations should return the mocked array
+    // wait for Angular app to settle
+    await TestBed.inject(ApplicationRef).whenStable();
+
     expect(service.occupations()).toEqual(mockOccupations);
   });
 
   it('should return empty array if resource not loaded yet', () => {
-    // occupationsResource hasn't emitted yet
     expect(service.occupations()).toEqual([]);
   });
 
   it('should reflect loading state', async () => {
-    // Initially loading is true while rxResource starts fetching
-    httpClientMock.get.mockReturnValue(of(mockOccupations));
+    service.occupations();
+    TestBed.inject(ApplicationRef).tick();
 
-    // isLoading should be a signal, initially true when resource starts
-    const initialLoading = service.isLoading();
-    expect(typeof initialLoading).toBe('boolean');
+    expect(service.isLoading()).toBe(true);
 
-    await new Promise((resolve) => setTimeout(resolve, 0));
+    httpMock
+      .expectOne(
+        `${environment.api.baseUrl}${environment.api.endpoints.occupations}`
+      )
+      .flush(mockOccupations);
 
-    // After fetch, loading should be false
+    await TestBed.inject(ApplicationRef).whenStable();
+
     expect(service.isLoading()).toBe(false);
   });
 });

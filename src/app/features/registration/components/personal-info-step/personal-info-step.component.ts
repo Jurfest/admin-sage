@@ -1,10 +1,13 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Control, Field } from '@angular/forms/signals';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+
+import { PersonalInfo } from '../../models/registration.models';
 
 @Component({
   selector: 'app-personal-info-step',
@@ -15,24 +18,23 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
     MatDatepickerModule,
     MatNativeDateModule,
     NgxMaskDirective,
+    Control,
   ],
   providers: [provideNgxMask()],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <form
-      [formGroup]="formGroup()"
-      class="grid grid-cols-1 md:grid-cols-2 gap-4"
-    >
+    <form class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <mat-form-field class="md:col-span-2">
         <mat-label>Nome Completo</mat-label>
         <input
           matInput
-          formControlName="fullName"
           placeholder="Digite seu nome completo"
+          [control]="form().fullName"
         />
-        @if (formGroup().get('fullName')?.hasError('required')) {
+        <!-- FIXME: - Add proper error handling -->
+        @if (form().fullName().errors()?.['required']) {
         <mat-error>Nome completo é obrigatório</mat-error>
-        } @if (formGroup().get('fullName')?.hasError('minlength')) {
+        } @if (form().fullName().errors()?.['minlength']) {
         <mat-error>Nome deve ter pelo menos 2 caracteres</mat-error>
         }
       </mat-form-field>
@@ -41,24 +43,22 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
         <mat-label>Data de Nascimento</mat-label>
         <input
           matInput
+          placeholder="dd/mm/aaaa"
+          [control]="form().dateOfBirth"
           [min]="minDate"
           [max]="maxDate"
-          placeholder="dd/mm/aaaa"
-          required
-          formControlName="dateOfBirth"
           [matDatepicker]="picker"
         />
         <mat-hint>DD/MM/AAAA</mat-hint>
-        <mat-datepicker-toggle
-          matIconSuffix
-          [for]="picker"
-        ></mat-datepicker-toggle>
+
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        @if (formGroup().get('dateOfBirth')?.hasError('required')) {
+        <!-- FIXME: - Add proper error handling -->
+        @if (form().dateOfBirth().errors()?.['required']) {
         <mat-error>Data de nascimento é obrigatória</mat-error>
-        } @if (formGroup().get('dateOfBirth')?.hasError('matDatepickerMin')) {
+        } @if (form().dateOfBirth().errors()?.['matDatepickerMin']) {
         <mat-error>Data deve ser posterior a 01/01/1900</mat-error>
-        } @if (formGroup().get('dateOfBirth')?.hasError('matDatepickerMax')) {
+        } @if (form().dateOfBirth().errors()?.['matDatepickerMax']) {
         <mat-error>Data não pode ser futura</mat-error>
         }
       </mat-form-field>
@@ -67,13 +67,14 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
         <mat-label>CPF</mat-label>
         <input
           matInput
-          formControlName="cpf"
           mask="000.000.000-00"
           placeholder="000.000.000-00"
+          [control]="form().cpf"
         />
-        @if (formGroup().get('cpf')?.hasError('required')) {
+        <!-- FIXME: - Add proper error handling -->
+        @if (form().cpf().errors()?.['required']) {
         <mat-error>CPF é obrigatório</mat-error>
-        } @if (formGroup().get('cpf')?.hasError('cpf')) {
+        } @if (form().cpf().errors()?.['cpf']) {
         <mat-error>CPF inválido</mat-error>
         }
       </mat-form-field>
@@ -82,14 +83,14 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
         <mat-label>Número de Telefone</mat-label>
         <input
           matInput
-          formControlName="phoneNumber"
           mask="(00) 0000-0000||(00) 00000-0000"
           placeholder="(00) 0000-0000 ou (00) 00000-0000"
+          [control]="form().phoneNumber"
         />
-
-        @if (formGroup().get('phoneNumber')?.hasError('required')) {
+        <!-- FIXME: - Add proper error handling -->
+        @if (form().phoneNumber().errors()?.['required']) {
         <mat-error>Número de telefone é obrigatório</mat-error>
-        } @if (formGroup().get('phoneNumber')?.hasError('phone')) {
+        } @if (form().phoneNumber().errors()?.['phone']) {
         <mat-error
           >Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX</mat-error
         >
@@ -99,9 +100,8 @@ import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
   `,
 })
 export class PersonalInfoStepComponent {
-  formGroup = input.required<FormGroup>();
+  form = input.required<Field<PersonalInfo>>();
 
-  // Date constraints for birth date
-  minDate = new Date(1900, 0, 1); // January 1, 1900
-  maxDate = new Date(); // Today
+  minDate = new Date(1900, 0, 1);
+  maxDate = new Date();
 }

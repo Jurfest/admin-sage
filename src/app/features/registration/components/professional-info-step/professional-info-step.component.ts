@@ -37,7 +37,7 @@ import { OccupationService } from '../../services/occupation.service';
           </mat-option>
           }
         </mat-select>
-        @if (form().occupation().errors()?.['required']) {
+        @if (form().occupation().errors()) {
         <mat-error> Profissão é obrigatória </mat-error>
         }
       </mat-form-field>
@@ -49,7 +49,7 @@ import { OccupationService } from '../../services/occupation.service';
           [control]="form().company"
           placeholder="Nome da empresa"
         />
-        @if (form().company().errors()?.['required']) {
+        @if (form().company().errors()) {
         <mat-error> Empresa é obrigatória </mat-error>
         }
       </mat-form-field>
@@ -64,6 +64,7 @@ import { OccupationService } from '../../services/occupation.service';
           prefix="R$ "
           placeholder="R$ 0,00"
         />
+        <!-- FIXME: - Add proper error handling -->
         @if (form().salary().errors()?.['required']) {
         <mat-error> Salário é obrigatório </mat-error>
         } @else if (form().salary().errors()?.['min']) {

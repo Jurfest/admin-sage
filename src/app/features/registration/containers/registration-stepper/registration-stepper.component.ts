@@ -1,5 +1,11 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ChangeDetectionStrategy, Component, computed, inject, linkedSignal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  linkedSignal,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Router } from '@angular/router';
@@ -20,7 +26,7 @@ import { RegistrationFormService } from '../../services/registration-form.servic
   imports: [
     MatStepperModule,
     MatButtonModule,
-    // PersonalInfoStepComponent,
+    PersonalInfoStepComponent,
     // ResidentialInfoStepComponent,
     ProfessionalInfoStepComponent,
   ],
@@ -32,17 +38,17 @@ import { RegistrationFormService } from '../../services/registration-form.servic
       </h1>
 
       <mat-stepper orientation="horizontal" #stepper>
-        <!--  <mat-step [completed]="personalForm().valid">
+         <mat-step [completed]="personalForm()">
           <ng-template matStepLabel>Informações Pessoais</ng-template>
           <div class="mt-6">
             <app-personal-info-step
-              [formGroup]="personalForm()"
+              [form]="personalForm()"
             ></app-personal-info-step>
           </div>
           <div class="mt-4">
             <button matButton matStepperNext>Próximo</button>
           </div>
-        </mat-step> -->
+        </mat-step>
 
         <!-- <mat-step [completed]="residentialForm().valid">
           <ng-template matStepLabel>Endereço</ng-template>

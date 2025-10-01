@@ -143,18 +143,18 @@ export class SummaryStepComponent implements OnInit, OnDestroy {
     const form = this.formService.registrationForm;
 
     // Update signals with current values
-    this.personalInfo.set(form.get('personal')?.value || {});
-    this.residentialInfo.set(form.get('residential')?.value || {});
-    this.professionalInfo.set(form.get('professional')?.value || {});
-    this.isFormValid.set(form.valid);
+    // this.personalInfo.set(form.get('personal')?.value || {});
+    // this.residentialInfo.set(form.get('residential')?.value || {});
+    // this.professionalInfo.set(form.get('professional')?.value || {});
+    // this.isFormValid.set(form.valid);
 
-    // Subscribe to form changes
-    form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
-      this.personalInfo.set(form.get('personal')?.value || {});
-      this.residentialInfo.set(form.get('residential')?.value || {});
-      this.professionalInfo.set(form.get('professional')?.value || {});
-      this.isFormValid.set(form.valid);
-    });
+    // // Subscribe to form changes
+    // form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
+    //   this.personalInfo.set(form.get('personal')?.value || {});
+    //   this.residentialInfo.set(form.get('residential')?.value || {});
+    //   this.professionalInfo.set(form.get('professional')?.value || {});
+    //   this.isFormValid.set(form.valid);
+    // });
   }
 
   ngOnDestroy(): void {

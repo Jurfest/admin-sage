@@ -1,6 +1,5 @@
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, computed, inject, linkedSignal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatStepperModule } from '@angular/material/stepper';
 import { Router } from '@angular/router';
@@ -19,11 +18,10 @@ import { RegistrationFormService } from '../../services/registration-form.servic
     },
   ],
   imports: [
-    ReactiveFormsModule,
     MatStepperModule,
     MatButtonModule,
-    PersonalInfoStepComponent,
-    ResidentialInfoStepComponent,
+    // PersonalInfoStepComponent,
+    // ResidentialInfoStepComponent,
     ProfessionalInfoStepComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,71 +31,51 @@ import { RegistrationFormService } from '../../services/registration-form.servic
         Formulário de Cadastro
       </h1>
 
-      <mat-stepper
-        [formGroup]="formService.registrationForm"
-        orientation="horizontal"
-        #stepper
-      >
-        <mat-step
-          formGroupName="personal"
-          [stepControl]="formService.personalFormGroup"
-          errorMessage="Informações incompletas."
-        >
+      <mat-stepper orientation="horizontal" #stepper>
+        <!--  <mat-step [completed]="personalForm().valid">
           <ng-template matStepLabel>Informações Pessoais</ng-template>
           <div class="mt-6">
             <app-personal-info-step
-              [formGroup]="formService.personalFormGroup"
+              [formGroup]="personalForm()"
             ></app-personal-info-step>
           </div>
           <div class="mt-4">
             <button matButton matStepperNext>Próximo</button>
           </div>
-        </mat-step>
+        </mat-step> -->
 
-        <mat-step
-          formGroupName="residential"
-          [stepControl]="formService.residentialFormGroup"
-          errorMessage="Informações incompletas."
-        >
+        <!-- <mat-step [completed]="residentialForm().valid">
           <ng-template matStepLabel>Endereço</ng-template>
-          <ng-template matStepContent>
-            <div class="mt-6">
-              <app-residential-info-step
-                [formGroup]="formService.residentialFormGroup"
-              ></app-residential-info-step>
-            </div>
-            <div class="mt-4">
-              <button matButton matStepperPrevious>Voltar</button>
-              <button matButton matStepperNext class="ml-2">Próximo</button>
-            </div>
-          </ng-template>
-        </mat-step>
+          <div class="mt-6">
+            <app-residential-info-step
+              [formGroup]="residentialForm()"
+            ></app-residential-info-step>
+          </div>
+          <div class="mt-4">
+            <button matButton matStepperPrevious>Voltar</button>
+            <button matButton matStepperNext class="ml-2">Próximo</button>
+          </div>
+        </mat-step> -->
 
-        <mat-step
-          formGroupName="professional"
-          [stepControl]="formService.professionalFormGroup"
-          errorMessage="Informações incompletas."
-        >
+        <mat-step [completed]="professionalForm()">
           <ng-template matStepLabel>Profissional</ng-template>
-          <ng-template matStepContent>
-            <div class="mt-6">
-              <app-professional-info-step
-                [formGroup]="formService.professionalFormGroup"
-              ></app-professional-info-step>
-            </div>
-            <div class="mt-4">
-              <button matButton matStepperPrevious>Voltar</button>
-              <button
-                matButton
-                color="primary"
-                (click)="navigateToSummary()"
-                [disabled]="!formService.registrationForm.valid"
-                class="ml-2"
-              >
-                Ver Resumo
-              </button>
-            </div>
-          </ng-template>
+          <div class="mt-6">
+            <app-professional-info-step
+              [form]="professionalForm()"
+            ></app-professional-info-step>
+          </div>
+          <div class="mt-4">
+            <button matButton matStepperPrevious>Voltar</button>
+            <!-- <button
+              matButton
+              color="primary"
+              (click)="navigateToSummary()"
+              [disabled]="!registrationForm().valid"
+              class="ml-2"
+            >
+              Ver Resumo
+            </button> -->
+          </div>
         </mat-step>
       </mat-stepper>
     </div>
@@ -106,6 +84,12 @@ import { RegistrationFormService } from '../../services/registration-form.servic
 export class RegistrationStepperComponent {
   formService = inject(RegistrationFormService);
   private router = inject(Router);
+
+  // --- linked signals for each step ---
+  registrationForm = this.formService.registrationForm;
+  personalForm = linkedSignal(() => this.registrationForm.personal);
+  residentialForm = linkedSignal(() => this.registrationForm.residential);
+  professionalForm = linkedSignal(() => this.registrationForm.professional);
 
   navigateToSummary(): void {
     this.router.navigate(['/registration/summary']);

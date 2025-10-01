@@ -1,47 +1,85 @@
-import { inject, Injectable } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Injectable, signal } from '@angular/core';
+import {
+  apply,
+  customError,
+  form,
+  min,
+  minLength,
+  required,
+  schema,
+  validate,
+} from '@angular/forms/signals';
 
 import { CustomValidators } from '../../../validators/custom-validators';
+import { Registration } from '../models/registration.models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RegistrationFormService {
-  private fb = inject(FormBuilder);
+  private personalSchema = schema<Registration['personal']>((path) => {
+    required(path.fullName);
+    minLength(path.fullName, 2);
 
-  registrationForm = this.fb.group({
-    personal: this.fb.group({
-      fullName: ['', [Validators.required, Validators.minLength(2)]],
-      dateOfBirth: ['', Validators.required],
-      cpf: ['', [Validators.required, CustomValidators.cpf()]],
-      phoneNumber: ['', [Validators.required, CustomValidators.phone()]],
-    }),
-    residential: this.fb.group({
-      zipCode: [
-        '',
-        [Validators.required, Validators.pattern(/^\d{5}-?\d{3}$/)],
-      ],
-      address: ['', Validators.required],
-      neighborhood: ['', Validators.required],
-      city: ['', Validators.required],
-      state: ['', Validators.required],
-    }),
-    professional: this.fb.group({
-      occupation: ['', Validators.required],
-      company: ['', Validators.required],
-      salary: ['', [Validators.required, Validators.min(0)]],
-    }),
+    required(path.dateOfBirth);
+
+    required(path.cpf);
+    validate(path.cpf, CustomValidators.cpf());
+
+    required(path.phoneNumber);
+    validate(path.phoneNumber, CustomValidators.phone());
   });
 
-  get personalFormGroup() {
-    return this.registrationForm.controls.personal as FormGroup;
-  }
+  private residentialSchema = schema<Registration['residential']>((path) => {
+    required(path.zipCode);
+    validate(path.zipCode, (ctx) => {
+      const value = ctx.value();
+      return /^\d{5}-?\d{3}$/.test(value)
+        ? null
+        : customError({ kind: 'invalid_zip', message: 'Invalid ZIP format' });
+    });
 
-  get residentialFormGroup() {
-    return this.registrationForm.controls.residential as FormGroup;
-  }
+    required(path.address);
+    required(path.neighborhood);
+    required(path.city);
+    required(path.state);
+  });
 
-  get professionalFormGroup() {
-    return this.registrationForm.controls.professional as FormGroup;
-  }
+  private professionalSchema = schema<Registration['professional']>((path) => {
+    required(path.occupation);
+    required(path.company);
+    required(path.salary);
+    min(path.salary, 0);
+  });
+
+  private registrationSchema = schema<Registration>((path) => {
+    apply(path.personal, this.personalSchema);
+    apply(path.residential, this.residentialSchema);
+    apply(path.professional, this.professionalSchema);
+  });
+
+  // --- Form instance ---
+  registrationForm = form<Registration>(
+    signal<Registration>({
+      personal: {
+        fullName: '',
+        dateOfBirth: '',
+        cpf: '',
+        phoneNumber: '',
+      },
+      residential: {
+        zipCode: '',
+        address: '',
+        neighborhood: '',
+        city: '',
+        state: '',
+      },
+      professional: {
+        occupation: '',
+        company: '',
+        salary: 0,
+      },
+    }),
+    this.registrationSchema
+  );
 }

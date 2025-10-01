@@ -5,42 +5,40 @@ import {
   inject,
   input,
 } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Control, Field } from '@angular/forms/signals';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
+import { ProfessionalInfo } from '../../models/registration.models';
 import { OccupationService } from '../../services/occupation.service';
 
 @Component({
   selector: 'app-professional-info-step',
   imports: [
     CommonModule,
-    ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     NgxMaskDirective,
+    Control,
   ],
   providers: [provideNgxMask()],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <form
-      [formGroup]="formGroup()"
-      class="grid grid-cols-1 md:grid-cols-2 gap-4"
-    >
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <mat-form-field>
         <mat-label>Profissão</mat-label>
-        <mat-select formControlName="occupation">
+        <mat-select [control]="form().occupation">
           @for (occupation of occupations(); track occupation.name) {
           <mat-option [value]="occupation.name">
             {{ occupation.name }}
           </mat-option>
           }
         </mat-select>
-        @if (formGroup().get('occupation')?.hasError('required')) {
-        <mat-error>Profissão é obrigatória</mat-error>
+        @if (form().occupation().errors()?.['required']) {
+        <mat-error> Profissão é obrigatória </mat-error>
         }
       </mat-form-field>
 
@@ -48,11 +46,11 @@ import { OccupationService } from '../../services/occupation.service';
         <mat-label>Empresa</mat-label>
         <input
           matInput
-          formControlName="company"
+          [control]="form().company"
           placeholder="Nome da empresa"
         />
-        @if (formGroup().get('company')?.hasError('required')) {
-        <mat-error>Empresa é obrigatória</mat-error>
+        @if (form().company().errors()?.['required']) {
+        <mat-error> Empresa é obrigatória </mat-error>
         }
       </mat-form-field>
 
@@ -60,23 +58,24 @@ import { OccupationService } from '../../services/occupation.service';
         <mat-label>Salário</mat-label>
         <input
           matInput
-          formControlName="salary"
+          [control]="form().salary"
           mask="separator.2"
           thousandSeparator=","
           prefix="R$ "
           placeholder="R$ 0,00"
         />
-        @if (formGroup().get('salary')?.hasError('required')) {
-        <mat-error>Salário é obrigatório</mat-error>
-        } @if (formGroup().get('salary')?.hasError('min')) {
-        <mat-error>Salário deve ser maior que 0</mat-error>
+        @if (form().salary().errors()?.['required']) {
+        <mat-error> Salário é obrigatório </mat-error>
+        } @else if (form().salary().errors()?.['min']) {
+        <mat-error> Salário deve ser maior que 0 </mat-error>
         }
       </mat-form-field>
-    </form>
+    </div>
   `,
 })
 export class ProfessionalInfoStepComponent {
-  formGroup = input.required<FormGroup>();
+  form = input.required<Field<ProfessionalInfo>>();
+
   private occupationService = inject(OccupationService);
   occupations = this.occupationService.occupations;
 }

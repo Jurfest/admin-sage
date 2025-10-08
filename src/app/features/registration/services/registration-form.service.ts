@@ -90,8 +90,4 @@ export class RegistrationFormService {
     }),
     this.registrationSchema
   );
-
-  constructor() {
-    this.registrationForm.professional.company().value.set('Accenture');
-  }
 }

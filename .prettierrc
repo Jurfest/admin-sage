@@ -3,5 +3,23 @@
   "trailingComma": "es5",
   "tabWidth": 2,
   "semi": true,
-  "printWidth": 80
+  "printWidth": 80,
+  "plugins": ["prettier-plugin-organize-attributes"],
+  "overrides": [
+    {
+      "files": "*.html",
+      "options": {
+        "parser": "angular",
+        "htmlWhitespaceSensitivity": "ignore",
+        "bracketSameLine": false
+      }
+    },
+    {
+      "files": "*.component.ts",
+      "options": {
+        "parser": "typescript",
+        "htmlWhitespaceSensitivity": "ignore"
+      }
+    }
+  ]
 }

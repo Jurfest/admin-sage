@@ -114,13 +114,13 @@ import { RegistrationFormService } from '../../services/registration-form.servic
       </mat-card>
 
       <div class="flex justify-center gap-4 mt-6">
-        <button mat-button (click)="goBack()">Voltar ao Formulário</button>
+        <button (click)="goBack()" mat-button>Voltar ao Formulário</button>
         <button
-          mat-raised-button
-          color="primary"
+          class="px-8 py-2"
           [disabled]="!isFormValid()"
           (click)="exportToPDF()"
-          class="px-8 py-2"
+          mat-raised-button
+          color="primary"
         >
           <mat-icon class="mr-2">picture_as_pdf</mat-icon>
           Exportar PDF

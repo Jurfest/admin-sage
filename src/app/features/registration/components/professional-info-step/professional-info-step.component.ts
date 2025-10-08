@@ -32,33 +32,33 @@ import { OccupationService } from '../../services/occupation.service';
         <mat-label>Profissão</mat-label>
         <mat-select [control]="form().occupation">
           @for (occupation of occupations(); track occupation.name) {
-          <mat-option [value]="occupation.name">
-            {{ occupation.name }}
-          </mat-option>
+            <mat-option [value]="occupation.name">
+              {{ occupation.name }}
+            </mat-option>
           }
         </mat-select>
         @if (form().occupation().errors()) {
-        <mat-error> Profissão é obrigatória </mat-error>
+          <mat-error>Profissão é obrigatória</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Empresa</mat-label>
         <input
-          matInput
           [control]="form().company"
+          matInput
           placeholder="Nome da empresa"
         />
         @if (form().company().errors()) {
-        <mat-error> Empresa é obrigatória </mat-error>
+          <mat-error>Empresa é obrigatória</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field class="md:col-span-2">
         <mat-label>Salário</mat-label>
         <input
-          matInput
           [control]="form().salary"
+          matInput
           mask="separator.2"
           thousandSeparator=","
           prefix="R$ "
@@ -66,9 +66,9 @@ import { OccupationService } from '../../services/occupation.service';
         />
         <!-- FIXME: - Add proper error handling -->
         @if (form().salary().errors()?.['required']) {
-        <mat-error> Salário é obrigatório </mat-error>
+          <mat-error>Salário é obrigatório</mat-error>
         } @else if (form().salary().errors()?.['min']) {
-        <mat-error> Salário deve ser maior que 0 </mat-error>
+          <mat-error>Salário deve ser maior que 0</mat-error>
         }
       </mat-form-field>
     </div>

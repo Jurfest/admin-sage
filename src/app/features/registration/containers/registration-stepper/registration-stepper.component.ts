@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 
 import { PersonalInfoStepComponent } from '../../components/personal-info-step/personal-info-step.component';
 import { ProfessionalInfoStepComponent } from '../../components/professional-info-step/professional-info-step.component';
-import { ResidentialInfoStepComponent } from '../../components/residential-info-step/residential-info-step.component';
+// import { ResidentialInfoStepComponent } from '../../components/residential-info-step/residential-info-step.component';
 import { RegistrationFormService } from '../../services/registration-form.service';
 
 @Component({
@@ -37,8 +37,8 @@ import { RegistrationFormService } from '../../services/registration-form.servic
         Formulário de Cadastro
       </h1>
 
-      <mat-stepper orientation="horizontal" #stepper>
-         <mat-step [completed]="personalForm()">
+      <mat-stepper #stepper orientation="horizontal">
+        <mat-step [completed]="personalForm()">
           <ng-template matStepLabel>Informações Pessoais</ng-template>
           <div class="mt-6">
             <app-personal-info-step
@@ -50,11 +50,12 @@ import { RegistrationFormService } from '../../services/registration-form.servic
           </div>
         </mat-step>
 
-        <!-- <mat-step [completed]="residentialForm().valid">
+        <!-- FIXME: Verify completed condition -->
+        <!-- <mat-step [completed]="residentialForm()">
           <ng-template matStepLabel>Endereço</ng-template>
           <div class="mt-6">
             <app-residential-info-step
-              [formGroup]="residentialForm()"
+              [form]="residentialForm()"
             ></app-residential-info-step>
           </div>
           <div class="mt-4">

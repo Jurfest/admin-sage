@@ -4,7 +4,7 @@ import { CustomValidators } from './custom-validators.legacy';
 
 describe('Custom Validators - Legacy', () => {
   const createControl = (value: any): AbstractControl =>
-    ({ value } as AbstractControl);
+    ({ value }) as AbstractControl;
 
   describe('cpf', () => {
     it('should return null for valid CPF', () => {

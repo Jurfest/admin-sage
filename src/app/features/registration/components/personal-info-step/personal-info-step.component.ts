@@ -27,73 +27,74 @@ import { PersonalInfo } from '../../models/registration.models';
       <mat-form-field class="md:col-span-2">
         <mat-label>Nome Completo</mat-label>
         <input
+          [control]="form().fullName"
           matInput
           placeholder="Digite seu nome completo"
-          [control]="form().fullName"
         />
-        <!-- FIXME: - Add proper error handling -->
-        @if (form().fullName().errors()?.['required']) {
-        <mat-error>Nome completo é obrigatório</mat-error>
-        } @if (form().fullName().errors()?.['minlength']) {
-        <mat-error>Nome deve ter pelo menos 2 caracteres</mat-error>
+        @for (error of form().fullName().errors(); track $index) {
+          <mat-error>{{ error.message }}</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Data de Nascimento</mat-label>
         <input
-          matInput
-          placeholder="dd/mm/aaaa"
           [control]="form().dateOfBirth"
           [min]="minDate"
           [max]="maxDate"
           [matDatepicker]="picker"
+          matInput
+          placeholder="dd/mm/aaaa"
         />
         <mat-hint>DD/MM/AAAA</mat-hint>
 
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle [for]="picker" matSuffix></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         <!-- FIXME: - Add proper error handling -->
         @if (form().dateOfBirth().errors()?.['required']) {
-        <mat-error>Data de nascimento é obrigatória</mat-error>
-        } @if (form().dateOfBirth().errors()?.['matDatepickerMin']) {
-        <mat-error>Data deve ser posterior a 01/01/1900</mat-error>
-        } @if (form().dateOfBirth().errors()?.['matDatepickerMax']) {
-        <mat-error>Data não pode ser futura</mat-error>
+          <mat-error>Data de nascimento é obrigatória</mat-error>
+        }
+        @if (form().dateOfBirth().errors()?.['matDatepickerMin']) {
+          <mat-error>Data deve ser posterior a 01/01/1900</mat-error>
+        }
+        @if (form().dateOfBirth().errors()?.['matDatepickerMax']) {
+          <mat-error>Data não pode ser futura</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>CPF</mat-label>
         <input
+          [control]="form().cpf"
           matInput
           mask="000.000.000-00"
           placeholder="000.000.000-00"
-          [control]="form().cpf"
         />
         <!-- FIXME: - Add proper error handling -->
         @if (form().cpf().errors()?.['required']) {
-        <mat-error>CPF é obrigatório</mat-error>
-        } @if (form().cpf().errors()?.['cpf']) {
-        <mat-error>CPF inválido</mat-error>
+          <mat-error>CPF é obrigatório</mat-error>
+        }
+        @if (form().cpf().errors()?.['cpf']) {
+          <mat-error>CPF inválido</mat-error>
         }
       </mat-form-field>
 
       <mat-form-field>
         <mat-label>Número de Telefone</mat-label>
         <input
+          [control]="form().phoneNumber"
           matInput
           mask="(00) 0000-0000||(00) 00000-0000"
           placeholder="(00) 0000-0000 ou (00) 00000-0000"
-          [control]="form().phoneNumber"
         />
         <!-- FIXME: - Add proper error handling -->
         @if (form().phoneNumber().errors()?.['required']) {
-        <mat-error>Número de telefone é obrigatório</mat-error>
-        } @if (form().phoneNumber().errors()?.['phone']) {
-        <mat-error
-          >Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX</mat-error
-        >
+          <mat-error>Número de telefone é obrigatório</mat-error>
+        }
+        @if (form().phoneNumber().errors()?.['phone']) {
+          <mat-error>
+            Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX
+          </mat-error>
         }
       </mat-form-field>
     </form>

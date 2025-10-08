@@ -17,9 +17,14 @@ import { Registration } from '../models/registration.models';
   providedIn: 'root',
 })
 export class RegistrationFormService {
+  // --- Validation Schemas --- Schema provide validation rules (and structure) for each form
+  // and goes with the form definition, after the signal with initial values. Schema
+  // has a path as a first argument, to access each field and apply validation rules.
   private personalSchema = schema<Registration['personal']>((path) => {
-    required(path.fullName);
-    minLength(path.fullName, 2);
+    required(path.fullName, { message: 'Nome completo é obrigatório' });
+    minLength(path.fullName, 2, {
+      message: 'Nome deve ter pelo menos 2 caracteres',
+    });
 
     required(path.dateOfBirth);
 
@@ -59,7 +64,7 @@ export class RegistrationFormService {
   });
 
   // --- Form instance ---
-  registrationForm = form<Registration>(
+  readonly registrationForm = form<Registration>(
     signal<Registration>({
       personal: {
         fullName: '',
@@ -82,4 +87,8 @@ export class RegistrationFormService {
     }),
     this.registrationSchema
   );
+
+  constructor() {
+    this.registrationForm.professional.company().value.set('Accenture');
+  }
 }

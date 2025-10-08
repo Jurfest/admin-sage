@@ -20,11 +20,14 @@ export class RegistrationFormService {
   // --- Validation Schemas --- Schema provide validation rules (and structure) for each form
   // and goes with the form definition, after the signal with initial values. Schema
   // has a path as a first argument, to access each field and apply validation rules.
+
+  private fullNameSchema = schema<string>((path) => {
+    required(path, { message: 'Nome completo é obrigatório' });
+    minLength(path, 2, { message: 'Nome deve ter pelo menos 2 caracteres' });
+  });
+
   private personalSchema = schema<Registration['personal']>((path) => {
-    required(path.fullName, { message: 'Nome completo é obrigatório' });
-    minLength(path.fullName, 2, {
-      message: 'Nome deve ter pelo menos 2 caracteres',
-    });
+    apply(path.fullName, this.fullNameSchema);
 
     required(path.dateOfBirth);
 

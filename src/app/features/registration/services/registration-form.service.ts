@@ -17,6 +17,9 @@ import { Registration } from '../models/registration.models';
   providedIn: 'root',
 })
 export class RegistrationFormService {
+  readonly minDate = new Date(1900, 0, 1);
+  readonly maxDate = new Date();
+
   // --- Validation Schemas --- Schema provide validation rules (and structure) for each form
   // and goes with the form definition, after the signal with initial values. Schema
   // has a path as a first argument, to access each field and apply validation rules.
@@ -29,12 +32,26 @@ export class RegistrationFormService {
   private personalSchema = schema<Registration['personal']>((path) => {
     apply(path.fullName, this.fullNameSchema);
 
-    required(path.dateOfBirth);
+    required(path.dateOfBirth, { message: 'Data de nascimento é obrigatória' });
+    validate(path.dateOfBirth, (ctx) => {
+      const value = ctx.value();
+      if (!value) return null;
+      
+      const date = new Date(value);
+      
+      if (date < this.minDate) {
+        return customError({ kind: 'matDatepickerMin', message: 'Data deve ser posterior a 01/01/1900' });
+      }
+      if (date > this.maxDate) {
+        return customError({ kind: 'matDatepickerMax', message: 'Data não pode ser futura' });
+      }
+      return null;
+    });
 
-    required(path.cpf);
+    required(path.cpf, { message: 'CPF é obrigatório' });
     validate(path.cpf, CustomValidators.cpf());
 
-    required(path.phoneNumber);
+    required(path.phoneNumber, { message: 'Número de telefone é obrigatório' });
     validate(path.phoneNumber, CustomValidators.phone());
   });
 

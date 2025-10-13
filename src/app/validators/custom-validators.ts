@@ -8,7 +8,7 @@ export class CustomValidators {
 
       const cpf = value.replace(/\D/g, '');
       if (cpf.length !== 11 || /^(\d)\1{10}$/.test(cpf)) {
-        return customError({ kind: 'cpf', message: 'Invalid CPF' });
+        return customError({ kind: 'cpf', message: 'CPF inválido' });
       }
 
       let sum = 0;
@@ -16,7 +16,7 @@ export class CustomValidators {
       let digit = 11 - (sum % 11);
       if (digit > 9) digit = 0;
       if (parseInt(cpf[9]) !== digit) {
-        return customError({ kind: 'cpf', message: 'Invalid CPF' });
+        return customError({ kind: 'cpf', message: 'CPF inválido' });
       }
 
       sum = 0;
@@ -24,7 +24,7 @@ export class CustomValidators {
       digit = 11 - (sum % 11);
       if (digit > 9) digit = 0;
       if (parseInt(cpf[10]) !== digit) {
-        return customError({ kind: 'cpf', message: 'Invalid CPF' });
+        return customError({ kind: 'cpf', message: 'CPF inválido' });
       }
 
       return null;
@@ -41,16 +41,16 @@ export class CustomValidators {
       if (phone.length === 10) {
         return /^\d{2}[2-5]\d{7}$/.test(phone)
           ? null
-          : customError({ kind: 'phone', message: 'Invalid phone number' });
+          : customError({ kind: 'phone', message: 'Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX' });
       }
 
       if (phone.length === 11) {
         return /^\d{2}9\d{8}$/.test(phone)
           ? null
-          : customError({ kind: 'phone', message: 'Invalid phone number' });
+          : customError({ kind: 'phone', message: 'Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX' });
       }
 
-      return customError({ kind: 'phone', message: 'Invalid phone number' });
+      return customError({ kind: 'phone', message: 'Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX' });
     };
   }
 }

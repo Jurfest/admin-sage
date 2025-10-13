@@ -77,10 +77,10 @@ export class RegistrationFormService {
   });
 
   private professionalSchema = schema<Registration['professional']>((path) => {
-    required(path.occupation);
-    required(path.company);
-    required(path.salary);
-    min(path.salary, 0);
+    required(path.occupation, { message: 'Profissão é obrigatória' });
+    required(path.company, { message: 'Empresa é obrigatória' });
+    required(path.salary, { message: 'Salário é obrigatório' });
+    min(path.salary, 0.01, { message: 'Salário deve ser maior que 0' });
   });
 
   private registrationSchema = schema<Registration>((path) => {

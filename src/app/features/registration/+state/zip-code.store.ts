@@ -19,16 +19,23 @@ export interface ZipCodeState {
   isLoading: boolean;
 }
 
+const initialState: ZipCodeState = {
+  zipCode: '',
+  data: null,
+  error: null,
+  isLoading: false,
+};
+
+/**
+ * Signal Store automatically turns each property in the state into a signal,
+ * and each method into a function that can update the state.
+ */
 export const ZipCodeStore = signalStore(
+  // dependency injection configuration
   { providedIn: 'root' },
 
   // initial state
-  withState<ZipCodeState>({
-    zipCode: '',
-    data: null,
-    error: null,
-    isLoading: false,
-  }),
+  withState<ZipCodeState>(initialState),
 
   // inject services
   withProps(() => ({
@@ -41,6 +48,7 @@ export const ZipCodeStore = signalStore(
     lookupZipCode: async (zipcode: string) => {
       if (zipcode === store.zipCode()) return;
 
+      // @patchState is a helper function to update the state
       patchState(store, { zipCode: zipcode, isLoading: true, error: null });
       store._loadingStore.setLoading(true);
 

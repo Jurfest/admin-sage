@@ -62,18 +62,18 @@ export class RegistrationFormService {
   });
 
   private residentialSchema = schema<Registration['residential']>((path) => {
-    required(path.zipCode);
+    required(path.zipCode, { message: 'CEP é obrigatório' });
     validate(path.zipCode, (ctx) => {
       const value = ctx.value();
       return /^\d{5}-?\d{3}$/.test(value)
         ? null
-        : customError({ kind: 'invalid_zip', message: 'Invalid ZIP format' });
+        : customError({ kind: 'invalid_zip', message: 'Formato do CEP inválido' });
     });
 
-    required(path.address);
-    required(path.neighborhood);
-    required(path.city);
-    required(path.state);
+    required(path.address, { message: 'Endereço é obrigatório' });
+    required(path.neighborhood, { message: 'Bairro é obrigatório' });
+    required(path.city, { message: 'Cidade é obrigatória' });
+    required(path.state, { message: 'Estado é obrigatório' });
   });
 
   private professionalSchema = schema<Registration['professional']>((path) => {

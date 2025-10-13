@@ -1,30 +1,20 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  DestroyRef,
+  computed,
+  effect,
   inject,
   input,
-  OnInit,
-  effect,
-  computed,
 } from '@angular/core';
-import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Control, Field } from '@angular/forms/signals';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  filter,
-  map,
-  tap,
-} from 'rxjs/operators';
 
 import { ZipCodeStore } from '../../+state/zip-code.store';
-import { Control, Field } from '@angular/forms/signals';
-import { ResidentialInfo } from '../../models/registration.models';
 import { debounceSignal } from '../../../../utils/signal-utilities';
+import { ResidentialInfo } from '../../models/registration.models';
 
 @Component({
   selector: 'app-residential-info-step',

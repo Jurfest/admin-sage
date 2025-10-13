@@ -33,26 +33,7 @@ export class RegistrationFormService {
     apply(path.fullName, this.fullNameSchema);
 
     required(path.dateOfBirth, { message: 'Data de nascimento é obrigatória' });
-    validate(path.dateOfBirth, (ctx) => {
-      const value = ctx.value();
-      if (!value) return null;
-
-      const date = new Date(value);
-
-      if (date < this.minDate) {
-        return customError({
-          kind: 'matDatepickerMin',
-          message: 'Data deve ser posterior a 01/01/1900',
-        });
-      }
-      if (date > this.maxDate) {
-        return customError({
-          kind: 'matDatepickerMax',
-          message: 'Data não pode ser futura',
-        });
-      }
-      return null;
-    });
+    validate(path.dateOfBirth, CustomValidators.dateRange(this.minDate, this.maxDate));
 
     required(path.cpf, { message: 'CPF é obrigatório' });
     validate(path.cpf, CustomValidators.cpf());
@@ -63,12 +44,7 @@ export class RegistrationFormService {
 
   private residentialSchema = schema<Registration['residential']>((path) => {
     required(path.zipCode, { message: 'CEP é obrigatório' });
-    validate(path.zipCode, (ctx) => {
-      const value = ctx.value();
-      return /^\d{5}-?\d{3}$/.test(value)
-        ? null
-        : customError({ kind: 'invalid_zip', message: 'Formato do CEP inválido' });
-    });
+    validate(path.zipCode, CustomValidators.zipCode());
 
     required(path.address, { message: 'Endereço é obrigatório' });
     required(path.neighborhood, { message: 'Bairro é obrigatório' });

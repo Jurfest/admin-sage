@@ -1,6 +1,42 @@
 import { customError, FieldValidator } from '@angular/forms/signals';
 
 export class CustomValidators {
+  static dateRange(minDate: Date, maxDate: Date): FieldValidator<string> {
+    return (ctx) => {
+      const value = ctx.value();
+      if (!value) return null;
+
+      const date = new Date(value);
+
+      if (date < minDate) {
+        return customError({
+          kind: 'matDatepickerMin',
+          message: 'Data deve ser posterior a 01/01/1900',
+        });
+      }
+      if (date > maxDate) {
+        return customError({
+          kind: 'matDatepickerMax',
+          message: 'Data não pode ser futura',
+        });
+      }
+      return null;
+    };
+  }
+
+  static zipCode(): FieldValidator<string> {
+    return (ctx) => {
+      const value = ctx.value();
+      if (!value) return null;
+
+      return /^\d{5}-?\d{3}$/.test(value)
+        ? null
+        : customError({
+            kind: 'invalid_zip',
+            message: 'Formato do CEP inválido',
+          });
+    };
+  }
   static cpf(): FieldValidator<string> {
     return (ctx) => {
       const value = ctx.value();

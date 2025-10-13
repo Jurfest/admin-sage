@@ -2,7 +2,6 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   inject,
   linkedSignal,
 } from '@angular/core';
@@ -12,7 +11,7 @@ import { Router } from '@angular/router';
 
 import { PersonalInfoStepComponent } from '../../components/personal-info-step/personal-info-step.component';
 import { ProfessionalInfoStepComponent } from '../../components/professional-info-step/professional-info-step.component';
-// import { ResidentialInfoStepComponent } from '../../components/residential-info-step/residential-info-step.component';
+import { ResidentialInfoStepComponent } from '../../components/residential-info-step/residential-info-step.component';
 import { RegistrationFormService } from '../../services/registration-form.service';
 
 @Component({
@@ -27,7 +26,7 @@ import { RegistrationFormService } from '../../services/registration-form.servic
     MatStepperModule,
     MatButtonModule,
     PersonalInfoStepComponent,
-    // ResidentialInfoStepComponent,
+    ResidentialInfoStepComponent,
     ProfessionalInfoStepComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -51,18 +50,18 @@ import { RegistrationFormService } from '../../services/registration-form.servic
         </mat-step>
 
         <!-- FIXME: Verify completed condition -->
-        <!-- <mat-step [completed]="residentialForm()">
+        <mat-step [completed]="residentialForm()">
           <ng-template matStepLabel>Endereço</ng-template>
           <div class="mt-6">
             <app-residential-info-step
-              [form]="residentialForm()"
+              [residentialForm]="residentialForm()"
             ></app-residential-info-step>
           </div>
           <div class="mt-4">
             <button matButton matStepperPrevious>Voltar</button>
-            <button matButton matStepperNext class="ml-2">Próximo</button>
+            <button class="ml-2" matButton matStepperNext>Próximo</button>
           </div>
-        </mat-step> -->
+        </mat-step>
 
         <mat-step [completed]="professionalForm()">
           <ng-template matStepLabel>Profissional</ng-template>

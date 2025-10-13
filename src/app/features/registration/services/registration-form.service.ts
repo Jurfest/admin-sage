@@ -36,14 +36,20 @@ export class RegistrationFormService {
     validate(path.dateOfBirth, (ctx) => {
       const value = ctx.value();
       if (!value) return null;
-      
+
       const date = new Date(value);
-      
+
       if (date < this.minDate) {
-        return customError({ kind: 'matDatepickerMin', message: 'Data deve ser posterior a 01/01/1900' });
+        return customError({
+          kind: 'matDatepickerMin',
+          message: 'Data deve ser posterior a 01/01/1900',
+        });
       }
       if (date > this.maxDate) {
-        return customError({ kind: 'matDatepickerMax', message: 'Data não pode ser futura' });
+        return customError({
+          kind: 'matDatepickerMax',
+          message: 'Data não pode ser futura',
+        });
       }
       return null;
     });

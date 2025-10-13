@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+} from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Control, Field } from '@angular/forms/signals';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -54,7 +59,6 @@ import { RegistrationFormService } from '../../services/registration-form.servic
         @for (error of form().dateOfBirth().errors(); track $index) {
           <mat-error>{{ error.message }}</mat-error>
         }
-
       </mat-form-field>
 
       <mat-form-field>
@@ -87,7 +91,7 @@ import { RegistrationFormService } from '../../services/registration-form.servic
 })
 export class PersonalInfoStepComponent {
   private registrationFormService = inject(RegistrationFormService);
-  
+
   form = input.required<Field<PersonalInfo>>();
 
   minDate = this.registrationFormService.minDate;

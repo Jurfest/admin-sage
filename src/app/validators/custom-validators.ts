@@ -41,16 +41,27 @@ export class CustomValidators {
       if (phone.length === 10) {
         return /^\d{2}[2-5]\d{7}$/.test(phone)
           ? null
-          : customError({ kind: 'phone', message: 'Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX' });
+          : customError({
+              kind: 'phone',
+              message:
+                'Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX',
+            });
       }
 
       if (phone.length === 11) {
         return /^\d{2}9\d{8}$/.test(phone)
           ? null
-          : customError({ kind: 'phone', message: 'Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX' });
+          : customError({
+              kind: 'phone',
+              message:
+                'Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX',
+            });
       }
 
-      return customError({ kind: 'phone', message: 'Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX' });
+      return customError({
+        kind: 'phone',
+        message: 'Formato inválido. Use (XX) XXXX-XXXX ou (XX) 9XXXX-XXXX',
+      });
     };
   }
 }

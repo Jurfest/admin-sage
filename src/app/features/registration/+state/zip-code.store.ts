@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { catchError, finalize, of, tap } from 'rxjs';
 import {
   patchState,
   signalStore,
@@ -45,26 +45,49 @@ export const ZipCodeStore = signalStore(
 
   // methods
   withMethods((store) => ({
-    lookupZipCode: async (zipcode: string) => {
+    lookupZipCode: (zipcode: string) => {
       if (zipcode === store.zipCode()) return;
 
-      // @patchState is a helper function to update the state
       patchState(store, { zipCode: zipcode, isLoading: true, error: null });
       store._loadingStore.setLoading(true);
 
-      try {
-        const data = await firstValueFrom(
-          store._zipCodeService.lookup(zipcode)
-        );
-        patchState(store, { data, isLoading: false });
-        store._loadingStore.setLoading(false);
-      } catch (error: unknown) {
-        patchState(store, {
-          error: 'Failed to fetch zip code',
-          isLoading: false,
-        });
-        store._loadingStore.setLoading(false);
-      }
+      return store._zipCodeService
+        .lookup(zipcode)
+        .pipe(
+          tap((data) => patchState(store, { data, isLoading: false })),
+          catchError(() => {
+            patchState(store, {
+              error: 'Failed to fetch zip code',
+              isLoading: false,
+            });
+            return of(null);
+          }),
+          finalize(() => store._loadingStore.setLoading(false))
+        )
+        .subscribe();
     },
+
+    // Example with async/await and firstValueFrom
+    // lookupZipCode: async (zipcode: string) => {
+    //   if (zipcode === store.zipCode()) return;
+
+    //   // @patchState is a helper function to update the state
+    //   patchState(store, { zipCode: zipcode, isLoading: true, error: null });
+    //   store._loadingStore.setLoading(true);
+
+    //   try {
+    //     const data = await firstValueFrom(
+    //       store._zipCodeService.lookup(zipcode)
+    //     );
+    //     patchState(store, { data, isLoading: false });
+    //     store._loadingStore.setLoading(false);
+    //   } catch (error: unknown) {
+    //     patchState(store, {
+    //       error: 'Failed to fetch zip code',
+    //       isLoading: false,
+    //     });
+    //     store._loadingStore.setLoading(false);
+    //   }
+    // },
   }))
 );

@@ -89,7 +89,7 @@ export const ZipCodeStore = signalStore(
     //     store._loadingStore.setLoading(false);
     //   }
     // },
-  })),
+  }))
   // // Example of derived state using withComputed
   // withComputed((store) => ({
   //   address: () => store.data()?.address ?? '',

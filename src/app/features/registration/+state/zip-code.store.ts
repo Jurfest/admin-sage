@@ -89,5 +89,24 @@ export const ZipCodeStore = signalStore(
     //     store._loadingStore.setLoading(false);
     //   }
     // },
-  }))
+  })),
+  // // Example of derived state using withComputed
+  // withComputed((store) => ({
+  //   address: () => store.data()?.address ?? '',
+  //   neighborhood: () => store.data()?.neighborhood ?? '',
+  //   city: () => store.data()?.city ?? '',
+  //   state: () => store.data()?.state ?? '',
+  // })),
+  // // lifecycle hooks
+  // withHooks((store) => ({
+  //   onInit() {
+  //     console.log('ZipCodeStore initialized');
+  //   },
+  //   onDestroy() {
+  //     console.log('ZipCodeStore destroyed');
+  //   },
+  // })),
+  // // link to another store
+  // withLinkedState(LoadingStore, (loadingStore) => ({ isLoading: loadingStore.isLoading })), // link isLoading to LoadingStore
+  // // feature name for devtools
 );

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   input,
   model,
 } from '@angular/core';
@@ -38,6 +39,17 @@ export interface SelectOption {
         [placeholder]="placeholder()"
         [disabled]="disabled()"
       >
+        <mat-select-trigger>
+          @if (selectedOption()) {
+            <div class="flex place-items-center gap-2">
+              <mat-icon class="option-icon">
+                {{ selectedOption()!.icon || defaultIcon() }}
+              </mat-icon>
+              <span>{{ selectedOption()!.label }}</span>
+            </div>
+          }
+        </mat-select-trigger>
+
         @if (loading()) {
           <mat-option>
             <div class="flex place-items-center gap-2">
@@ -114,4 +126,8 @@ export class CustomSelectComponent implements FormValueControl<string | null> {
   placeholder = input<string>('');
   defaultIcon = input<string>('work');
   loading = input<boolean>(false);
+
+  selectedOption = computed(() =>
+    this.options().find((option) => option.value === this.value())
+  );
 }

@@ -20,6 +20,7 @@ export class OccupationService {
   //   },
   // });
 
+  // NOTE: - Resource API should be used for simple GET requests (currently v21.0.0-next.5)
   private occupationsResource = httpResource<Occupation[]>(
     () => `${this.baseUrl}${environment.api.endpoints.occupations}`
   );

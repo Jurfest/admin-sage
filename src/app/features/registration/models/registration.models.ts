@@ -35,6 +35,7 @@ export interface ZipCodeApiResponse {
 export interface Occupation {
   id: string;
   name: string;
+  icon?: string;
 }
 
 export interface Registration {

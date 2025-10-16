@@ -2,15 +2,19 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
   input,
 } from '@angular/core';
 import { Control, Field } from '@angular/forms/signals';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
+import {
+  CustomSelectComponent,
+  SelectOption,
+} from '../../../../ui/custom-select/custom-select.component';
 import { ProfessionalInfo } from '../../models/registration.models';
 import { OccupationService } from '../../services/occupation.service';
 
@@ -20,27 +24,21 @@ import { OccupationService } from '../../services/occupation.service';
     CommonModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule,
     NgxMaskDirective,
     Control,
+    CustomSelectComponent,
   ],
   providers: [provideNgxMask()],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <mat-form-field>
-        <mat-label>Profissão</mat-label>
-        <mat-select [control]="form().occupation">
-          @for (occupation of occupations(); track occupation.name) {
-            <mat-option [value]="occupation.name">
-              {{ occupation.name }}
-            </mat-option>
-          }
-        </mat-select>
-        @for (error of form().occupation().errors(); track $index) {
-          <mat-error>{{ error.message }}</mat-error>
-        }
-      </mat-form-field>
+      <app-custom-select
+        [control]="form().occupation"
+        [options]="occupationOptions()"
+        label="Profissão"
+        placeholder="Selecione uma profissão"
+        defaultIcon="work"
+      />
 
       <mat-form-field>
         <mat-label>Empresa</mat-label>
@@ -76,4 +74,12 @@ export class ProfessionalInfoStepComponent {
 
   private occupationService = inject(OccupationService);
   occupations = this.occupationService.occupations;
+
+  occupationOptions = computed((): SelectOption[] =>
+    this.occupations().map((occupation) => ({
+      value: occupation.name,
+      label: occupation.name,
+      icon: occupation.icon || 'work',
+    }))
+  );
 }

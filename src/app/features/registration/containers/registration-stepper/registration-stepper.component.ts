@@ -73,11 +73,11 @@ import { RegistrationFormService } from '../../services/registration-form.servic
           <div class="mt-4">
             <button matButton matStepperPrevious>Voltar</button>
             <button
+              class="ml-2"
+              [disabled]="registrationForm().invalid()"
+              (click)="navigateToSummary()"
               matButton
               color="primary"
-              (click)="navigateToSummary()"
-              [disabled]="registrationForm().invalid()"
-              class="ml-2"
             >
               Ver Resumo
             </button>

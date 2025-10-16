@@ -72,15 +72,15 @@ import { RegistrationFormService } from '../../services/registration-form.servic
           </div>
           <div class="mt-4">
             <button matButton matStepperPrevious>Voltar</button>
-            <!-- <button
+            <button
               matButton
               color="primary"
               (click)="navigateToSummary()"
-              [disabled]="!registrationForm().valid"
+              [disabled]="registrationForm().invalid()"
               class="ml-2"
             >
               Ver Resumo
-            </button> -->
+            </button>
           </div>
         </mat-step>
       </mat-stepper>

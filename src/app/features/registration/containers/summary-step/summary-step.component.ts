@@ -2,17 +2,13 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   inject,
-  OnDestroy,
-  OnInit,
-  signal,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 import { RegistrationFormService } from '../../services/registration-form.service';
 
@@ -129,38 +125,16 @@ import { RegistrationFormService } from '../../services/registration-form.servic
     </div>
   `,
 })
-export class SummaryStepComponent implements OnInit, OnDestroy {
+export class SummaryStepComponent {
   private formService = inject(RegistrationFormService);
   private router = inject(Router);
-  private destroy$ = new Subject<void>();
 
-  personalInfo = signal<any>({});
-  residentialInfo = signal<any>({});
-  professionalInfo = signal<any>({});
-  isFormValid = signal(false);
+  private form = this.formService.registrationForm;
 
-  ngOnInit(): void {
-    const form = this.formService.registrationForm;
-
-    // Update signals with current values
-    // this.personalInfo.set(form.get('personal')?.value || {});
-    // this.residentialInfo.set(form.get('residential')?.value || {});
-    // this.professionalInfo.set(form.get('professional')?.value || {});
-    // this.isFormValid.set(form.valid);
-
-    // // Subscribe to form changes
-    // form.valueChanges.pipe(takeUntil(this.destroy$)).subscribe(() => {
-    //   this.personalInfo.set(form.get('personal')?.value || {});
-    //   this.residentialInfo.set(form.get('residential')?.value || {});
-    //   this.professionalInfo.set(form.get('professional')?.value || {});
-    //   this.isFormValid.set(form.valid);
-    // });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
+  personalInfo = computed(() => this.form().value().personal);
+  residentialInfo = computed(() => this.form().value().residential);
+  professionalInfo = computed(() => this.form().value().professional);
+  isFormValid = computed(() => this.form().valid());
 
   formatDate(date: any): string {
     if (!date) return '';
